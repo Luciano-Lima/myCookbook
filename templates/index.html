@@ -1,5 +1,15 @@
 <html>
    <head>
-       
+       <body>
+          <h1>cookBook </h1>
+          {% for recipe in recipes %}
+          {{ recipe.steps }}
+          {{ recipe.timers }}
+          {{ recipe.originalURL }}
+          {{ recipe.ingredients }}
+          {{ recipe.name }}
+          {{ recipe.imageURL }}
+       {% endfor %}
+       </body>
    </head> 
 </html>
