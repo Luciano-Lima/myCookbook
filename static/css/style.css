@@ -1,3 +1,13 @@
 body {
-    background-color: #d8d8d4;
+    background-image: url("/static/pictures/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.jumbotron {
+    padding: 2rem 1rem;
+    margin-top: 4rem;
+    background-color: #e9ecef;
+    border-radius: 1.5rem;
+    opacity: .8;
 }
