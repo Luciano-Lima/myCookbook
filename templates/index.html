@@ -1,15 +1,21 @@
-<html>
-   <head>
-       <body>
-          <h1>cookBook </h1>
-          {% for recipe in recipes %}
-          {{ recipe.steps }}
-          {{ recipe.timers }}
-          {{ recipe.originalURL }}
-          {{ recipe.ingredients }}
-          {{ recipe.name }}
-          {{ recipe.imageURL }}
-       {% endfor %}
-       </body>
-   </head> 
-</html>
+{% extends 'base.html' %}
+{% block content %}
+   <div class="container-fluid">
+      <div class="jumbotron text-center">
+         <h1>Welcome to Cookbook</h1>
+         <p>Your very own personal recipe organiser!
+         <p><strong>Sign Up</strong> now to add your recipes</p>
+      </div>
+   </div>
+   
+         
+   {% for recipe in recipes %}
+      <!--{{ recipe.steps }}-->
+      <!--{{ recipe.timers }}-->
+      <!--{{ recipe.originalURL }}-->
+      <!--{{ recipe.ingredients }}-->
+      <!--{{ recipe.name }}-->
+      <!--{{ recipe.imageURL }}-->
+   {% endfor %}
+
+{% endblock %}
