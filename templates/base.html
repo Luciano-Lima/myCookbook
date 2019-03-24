@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   	<link rel="stylesheet" href="{{url_for('static', filename='js/jquery.js')}}" type="text/css" />
    	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
+   	
 </head>
 <body>
 	<header>
@@ -24,6 +26,18 @@
 		            	<a class="nav-link" href="#">Recipes</a>
 		          	</li>
 		        </ul>
+		        <ul class="nav navbar-nav navbar-right nav-login">
+		  			<li id="login-button"><a class="login" href="#">Login</a></li>
+					<span id="login">
+						<form class="navbar-form navbar-left" role="login">
+			  				<div class="form-group">
+								<input type="email" class="form-control login-username" placeholder="Username">
+								<input type="password" class="form-control login-password" placeholder="Password">
+			  				</div>
+			  				<button type="submit" class="btn btn-default btn-xs">Login</button>
+			  			</form>
+			  		</span>
+	  			</ul>
 		    </div>
 	    </nav>
 	</header>
