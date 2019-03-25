@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+   <div class="container-fluid">
+       <div class="jumbotron text-center">
+           <h1>Easy and Quick Recipes</h1>
+           <p>From quick and easy midweek dinners to cuisines from across the globe, we’ve got dinnertime solved!</p>
+       </div>
+   </div>
+   
+       {% for recipe in recipes %}
+       <div class="container">
+           <div class="row">
+               <div class="recipes_name col-md-4">
+                   <h2> {{ recipe.name }} </h2>
+                         {{ recipe.originalURL }}  
+                   <ul>
+                       <h4>Ingredients</h4>
+                       {% for ingredient in recipe.ingredients %}
+                        {{ ingredient.quantity }}
+                        {{ ingredient.type }}
+                        {{ ingredient.name }}
+                         
+                            
+                        </ul>
+                       {% endfor %}
+                   </ul>
+                   <ul>
+                       <h4>Preparation Steps</h4>
+                       {% for step in recipe.steps %}
+                         <li>{{ step }}</li>
+                       {% endfor %}
+                   </ul>
+                  
+                   
+                   
+                    
+               </div>
+               <!--<div class="recipes_name col-md-3">-->
+               <!--    <h2> {{ recipe.name }} </h2>-->
+                        
+               <!--</div>-->
+           </div>
+       </div>
+         
+   {% endfor%}
+   
+{% endblock %}
