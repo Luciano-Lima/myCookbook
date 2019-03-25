@@ -1,52 +1,67 @@
-body {
-    background-image: url("/static/pictures/background.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
+/*body {*/
+/*	background-color: red;*/
+/*}*/
+body, html {
+	height: 100%;
+	margin: 0;
+	background-color: #e8edf0;
+	padding: 0;
 }
 
-.jumbotron {
-    padding: 2rem 1rem;
-    margin-top: 4rem;
-    background-color: #e9ecef;
-    border-radius: 1.5rem;
-    opacity: .8;
+
+.backImg {
+	background-repeat: no-repeat;
+	background-position: center;
+    background-size: cover;
+    
 }
+
+/*.jumbotron {*/
+/*    padding: 2rem 1rem;*/
+/*    margin-top: 4rem;*/
+/*    background-color: #e9ecef;*/
+/*    border-radius: 1.5rem;*/
+/*    opacity: .8;*/
+/*    position: absolute;*/
+/*    left: 50%;*/
+/*    margin-left: -100px;*/
+/*}*/
 
 
 /* Login Slider */
-#login {
-	display: none;
-	white-space: nowrap;
-	padding-top: 6px;
-	height: 50px;
-	/*position: relative;*/
-	/*top: 0;*/
-	/*right: 0;*/
-}
+/*#login {*/
+/*	display: none;*/
+/*	white-space: nowrap;*/
+/*	padding-top: 6px;*/
+/*	height: 50px;*/
+/*	position: relative;*/
+/*	top: 0;*/
+/*	right: 0;*/
+/*}*/
 
-.login-username {
-	height: 22px;
-	width: 175px !important;
-	font-size: 11px;
-	padding: 5px 10px;
-}
+/*.login-username {*/
+/*	height: 22px;*/
+/*	width: 175px !important;*/
+/*	font-size: 11px;*/
+/*	padding: 5px 10px;*/
+/*}*/
 
-.login-password {
-	height: 22px;
-	width: 100px !important;
-	font-size: 11px;
-	padding: 5px 10px;
-}
+/*.login-password {*/
+/*	height: 22px;*/
+/*	width: 100px !important;*/
+/*	font-size: 11px;*/
+/*	padding: 5px 10px;*/
+/*}*/
 
-.nav-left {
-	position: relative;
-}
+/*.nav-left {*/
+/*	position: relative;*/
+/*}*/
 
-.nav-login {
-	position: absolute; 
-	right: 3%;
-}
+/*.nav-login {*/
+/*	position: absolute; */
+/*	right: 3%;*/
+/*}*/
 
-.login-clicked {
-	background-color: #d9d9d9;
-}
+/*.login-clicked {*/
+/*	background-color: #d9d9d9;*/
+/*}*/
