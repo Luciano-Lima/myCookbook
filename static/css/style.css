@@ -4,7 +4,7 @@
 body, html {
 	height: 100%;
 	margin: 0;
-	background-color: #e8edf0;
+	background-color: #fbfbfb;
 	padding: 0;
 }
 
@@ -13,19 +13,27 @@ body, html {
 	background-repeat: no-repeat;
 	background-position: center;
     background-size: cover;
+    width: 100%;
+    
     
 }
 
-/*.jumbotron {*/
-/*    padding: 2rem 1rem;*/
-/*    margin-top: 4rem;*/
-/*    background-color: #e9ecef;*/
-/*    border-radius: 1.5rem;*/
-/*    opacity: .8;*/
-/*    position: absolute;*/
-/*    left: 50%;*/
-/*    margin-left: -100px;*/
-/*}*/
+#grid {
+	display: grid;
+	height: 100px;
+	grid-columns: 70% 30%;
+}
+
+.jumbotron {
+    padding: 2rem 1rem;
+    margin-top: 4rem;
+    background-color: #e9ecef;
+    border-radius: 1.5rem;
+    opacity: .8;
+    position: absolute;
+    left: 50%;
+    margin-left: -100px;
+}
 
 
 /* Login Slider */
@@ -65,3 +73,10 @@ body, html {
 /*.login-clicked {*/
 /*	background-color: #d9d9d9;*/
 /*}*/
+
+        /*footer*/
+        
+#footer {
+    background-color: #212529;
+    
+}
