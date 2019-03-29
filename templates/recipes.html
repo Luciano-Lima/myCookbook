@@ -10,20 +10,23 @@
        {% for recipe in recipes %}
        <div class="container">
            <div class="row">
-               <div class="recipes_name col-md-4">
+               <div class="recipes_name text-center card">
                    <h2> {{ recipe.name }} </h2>
-                         {{ recipe.originalURL }}  
+                         <img class="card-img" src="{{ recipe.imageURL }}"></img>  
                    <ul>
                        <h4>Ingredients</h4>
                        {% for ingredient in recipe.ingredients %}
-                        {{ ingredient.quantity }}
-                        {{ ingredient.type }}
-                        {{ ingredient.name }}
-                         
+                       <ul>
+                            {{ ingredient.quantity }}
+                            {{ ingredient.type }}
+                            {{ ingredient.name }}
+                        
+                       </ul>
+                       {% endfor %}     
                             
-                        </ul>
-                       {% endfor %}
-                   </ul>
+                    
+                       
+                   
                    <ul>
                        <h4>Preparation Steps</h4>
                        {% for step in recipe.steps %}
