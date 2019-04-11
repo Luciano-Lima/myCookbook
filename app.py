@@ -40,7 +40,7 @@ def add_recipe():
 #User registration
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
-    form =  registerForm()
+    form =  RegisterForm()
     #checking for data validation on Post
     if form.validate_on_submit():
          flash('Hi {}, your account has been created!'.format({form.username.data}), 'success')
@@ -51,7 +51,7 @@ def register():
 #User login
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
-    form = loginForm()
+    form = LoginForm()
     #checking for data validation on Post
     if form.validate_on_submit():
         flash('Your are logged in', 'success')
