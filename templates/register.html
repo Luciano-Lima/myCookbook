@@ -1,0 +1,81 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container registration">
+    <h1 class="text-center uppercase">sign you to add your own recipes</h1>
+    <hr>
+    <div class="row">
+        <div class="col-md-5">
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <fieldset>
+                    <strong>Sign UP Now</strong>
+                    <div class="form-group">
+                        {{ form.username.label(class="form-control-label") }}
+                        <!--Check for error in the form input-->
+                        {% if form.username.errors %}
+                            {{ form.username(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <!--displaying to the user a message error-->
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                            {{ form.username(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.email.label(class="form-control-label") }}
+                        <!--Check for error in the form input-->
+                        {% if form.email.errors %}
+                            {{ form.email(class="form-control is-invalid") }} 
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                            <!--displaying to the user a message error-->
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                            {{ form.email(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.password.label(class="form-control-label") }}
+                        <!--Check for error in the form input-->
+                        {% if form.password.errors %}
+                            {{ form.password(class="form-control is-invalid") }} 
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                            <!--displaying to the user a message error-->
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                            {{ form.password(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.confirm_password.label(class="form-control-label") }}
+                        <!--Check for error in the form input-->
+                        {% if form.confirm_password.errors %}
+                            {{ form.confirm_password(class="form-control is-invalid") }} 
+                        <div class="invalid-feedback">
+                            {% for error in form.confirm_password.errors %}
+                            <!--displaying to the user a message error-->
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                            {{ form.confirm_password(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div>
+                        {{ form.submit(class="btn btn-md btn-primary") }}
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
