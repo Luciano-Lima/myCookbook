@@ -45,9 +45,20 @@ def register():
     if form.validate_on_submit():
          flash('Hi {}, your account has been created!'.format({form.username.data}), 'success')
          return redirect(url_for('index'))
-    return render_template('register.html', page_title="New User Register", form=form)    
+    return render_template('register.html', page_title="New User Register", form=form)  
     
-
+    
+#User login
+@app.route('/login', methods = ['GET', 'POST'])
+def login():
+    form = loginForm()
+    #checking for data validation on Post
+    if form.validate_on_submit():
+        flash('Your are logged in', 'success')
+        return redirect(url_for('index'))
+    else:
+        flash('Please check your details and try again', 'danger')
+    return render_template('login.html', page_title='User Login', form=form)        
 
 
     
