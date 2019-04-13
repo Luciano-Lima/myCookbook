@@ -1,14 +1,16 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="container registration">
-    <h1 class="text-center uppercase">sign you to add your own recipes</h1>
+    <h1 class="text-center">Sign in Today to Add your Own Recipes</h1>
     <hr>
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-5 mx-auto">
             <form method="POST" action="">
                 {{ form.hidden_tag() }}
+                <div><span class="text-muted text-center">Already have an account? <a href="{{url_for('login')}}">Sign In.</a></span></div>
+                <hr>
                 <fieldset>
-                    <strong>Sign UP Now</strong>
+                    <span><strong>Sign UP Now!</strong></span>
                     <div class="form-group">
                         {{ form.username.label(class="form-control-label") }}
                         <!--Check for error in the form input-->
