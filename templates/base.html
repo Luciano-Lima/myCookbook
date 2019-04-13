@@ -39,12 +39,20 @@
 	    </nav>
 	</header>
 	
-		{% block content %}
-    
-    
-    	{% endblock %}
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			{% for message in messages %}
+				{{ message }}
+			{% endfor %}
+		{% endif %}
+	{% endwith %}
 	
-    <footer id="footer" class="container-fluid">
+		{% block content %}	{% endblock %}
+    
+    	
+    
+	
+    <footer id="footer" class="container-fluid fixed-bottom">
 		<div class="col-12 text-center">
 			<a href="https://twitter.com/" target="_blank">
 				<i class="fab fa-twitter fa-2x" aria-hidden="true"></i>
