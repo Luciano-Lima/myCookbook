@@ -1,33 +1,55 @@
 {% extends 'base.html' %} {% block content %}
-<div class="container-fluid">
-    <div class="jumbotron text-center">
-        <h1>Easy and Quick Recipes</h1>
-        <p>From quick and easy midweek dinners to cuisines from across the globe, we’ve got dinnertime solved!</p>
-    </div>
-</div>
+<!--<div class="container-fluid">-->
+<!--    <div class="jumbotron text-center">-->
+<!--        <h1>Easy and Quick Recipes</h1>-->
+<!--        <p>From quick and easy midweek dinners to cuisines from across the globe, we’ve got dinnertime solved!</p>-->
+<!--    </div>-->
+<!--</div>-->
 
-<!--{% for recipe in recipes %}-->
 <div class="container">
     <div class="row">
-        <div class="recipes_name text-center card">
-            <h2> {{ recipe.name }} </h2>
-            <img class="card-img" src="{{ recipe.imageURL }}"></img>
-            <ul>
-                <h4>Ingredients</h4>
-                {% for ingredient in recipe.ingredients %}
-                <ul>
-                    {{ ingredient.quantity }} {{ ingredient.type }} {{ ingredient.name }}
-                </ul>
-                {% endfor %}
-                <ul>
-                    <h4>Preparation Steps</h4>
-                    {% for step in recipe.steps %}
-                    <li>{{ step }}</li>
+        <div class="col-sm-12 col-md-6 col-lg-4 all-recipes">
+            <div class="recipes_name text-center">
+                <h1>recipes list</h1>
+                <div class="card">
+                    {% for recipe in recipes %}
+                        {% for item in recipe.recipe %}
+                            <img class="pictures" src="{{ item.image }}"></img>
+                            <div class="card-body">
+                                <h4>{{ item.name }}</h4>
+                                <p>{{ item.description }}</p>
+                            </div>
+                            <di class="card-footer">
+                                {% for i in item.tag %}
+                                    {{ i }}
+                                {% endfor %}
+                            </di>
+                             
+                            
+                        {% endfor %}
                     {% endfor %}
-                </ul>
+                </div>
+            </div>
         </div>
-    </div>
+    </div>    
 </div>
-
-<!--{% endfor%} -->
 {% endblock %}
+                
+                
+                
+                
+            
+            
+
+
+                
+                     
+                     
+                      
+                    
+                    
+                    
+                    
+                    
+                    
+					
