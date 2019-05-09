@@ -1,0 +1,67 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>Easy and Quick Recipes</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-8 offset-lg-2">
+            <div class="each-rec-picture">
+                <img class="card-img-top each-recipe-pict" src="{{ recipes.image }}" alt="Image for {{ recipes.name }}"></img>
+            </div>
+            <div class="cuisine">
+                <span>Cuisine {{ recipes.cuisine }}</span>
+                {% for tag in recipes.allergens %}
+                <span>Allergens {{ tag }}</span>
+                {% endfor %}
+                <span>By {{ recipes.author }}</span>
+            </div> 
+            <div class="card-body text-center">
+                <h2>{{ recipes.name }}</h2>
+            </div>    
+            <div class="rec-description text-center">
+                <p>{{ recipes.description }}</p>
+                <p>{{ recipes.notes }}</p>
+            </div>
+            <hr>
+            <div class="ingredientes">
+                <h3 class="text-center">Ingredients</h3>
+                {% for rec in recipes.ingredient %}
+                <ul>
+                    <li>{{ rec.amount }}
+                        {{ rec.unit }}
+                        {{ rec.name }}
+                    </li>
+                </ul>
+                {% endfor %}
+            </div>
+            <hr>
+            <div class="prep-steps">
+                <h4 class="text-center">Preparation Steps</h4>    
+                {% for rec in recipes.step %}
+                <ul>
+                    <li>{{ rec.description }}</li>
+                </ul>   
+                {% endfor %}
+            </div>
+            <hr>
+            <div class="row">
+                {% for rec in recipes.ingredientGroup %}
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <h5 class="text-center">{{ rec.name }}</h5>
+                    <div class="row">
+                        {% for ingredient in rec.ingredient %} 
+                            <ul>
+                                {{ingredient.amount}}
+                                {{ingredient.unit}}
+                                {{ingredient.name}}
+                                {{ingredient.preparation}}
+                            </ul>
+                        {% endfor %} 
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
