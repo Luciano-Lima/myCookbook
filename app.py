@@ -1,4 +1,5 @@
 import os
+
 from flask import Flask, render_template, redirect, request, url_for, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
@@ -17,6 +18,7 @@ mongo = PyMongo(app)
 #Collection
 recipes_coll = mongo.db.recipes
 
+
 # home
 @app.route('/')
 @app.route('/index')
@@ -31,6 +33,28 @@ def recipes():
     return render_template('recipes.html', page_title="Easy and Quick Recipes",  recipes=recipes)
     
     
+#Each recipe view
+@app.route('/recipe/<recipe_id>')
+def recipe(recipe_id):
+    recipes = recipes_coll.find_one({"_id": ObjectId(recipe_id)})
+    return render_template('recipe.html', recipes=recipes)
+   
+  
+#Filter recipes
+@app.route('/filter_recipes', methods = ['GET','POST'])
+def filter_recipes():
+    if request.method == 'POST':
+        recipes = recipes_coll.find({ "$or": [ { "course": request.form["course"] }, { "cuisine": request.form["cuisine"] }, { "allergens": request.form["allergens"] }, { "author": request.form["author"] }] })
+        print(recipes)
+        # print(list(recipes))
+        return render_template('recipes.html', recipes=recipes)
+    return render_template('recipes.html', recipes=recipes)
+ 
+    
+
+
+
+
 #Add recipes 
 @app.route('/add_recipe')
 def add_recipe():
