@@ -1,55 +1,83 @@
 {% extends 'base.html' %} {% block content %}
-<!--<div class="container-fluid">-->
-<!--    <div class="jumbotron text-center">-->
-<!--        <h1>Easy and Quick Recipes</h1>-->
-<!--        <p>From quick and easy midweek dinners to cuisines from across the globe, we’ve got dinnertime solved!</p>-->
-<!--    </div>-->
-<!--</div>-->
-
 <div class="container">
-    <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-4 all-recipes">
-            <div class="recipes_name text-center">
-                <h1>recipes list</h1>
-                <div class="card">
-                    {% for recipe in recipes %}
-                        {% for item in recipe.recipe %}
-                            <img class="pictures" src="{{ item.image }}"></img>
-                            <div class="card-body">
-                                <h4>{{ item.name }}</h4>
-                                <p>{{ item.description }}</p>
-                            </div>
-                            <di class="card-footer">
-                                {% for i in item.tag %}
-                                    {{ i }}
-                                {% endfor %}
-                            </di>
-                             
-                            
-                        {% endfor %}
-                    {% endfor %}
+    <div class="jumbotron text-center">
+        <h1>Easy and Quick Recipes</h1>
+        <p>From quick and easy midweek dinners to cuisines from across the globe, we’ve got dinnertime solved!</p>
+    </div>
+    <!--Filtering the recipes form returning to the same page-->
+    <div id="menus">
+        <form action="{{url_for('filter_recipes')}}" method="POST">
+            <div class="btn btn-info browse-recipes"><strong>Browse Recipes:</strong></div>
+            <div class="form-row align-items-center form-wrapper">
+                <div class="col-auto my-1">
+                    <select name="course" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                        <option selected>Course...</option>
+                        <option value="Starter" name="course">Starter</option>
+                        <option value="Salad" name="course">Salad</option>
+                        <option value="Main" name="course">Main</option>
+                        <option value="Dessert" name="course">Dessert</option>
+                    </select>
+                </div>
+                <div class="col-auto my-1">
+                    <select name="cuisine" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                        <option selected>Cuisine...</option>
+                        <option value="Italian" name="cuisine">Italian</option>
+                        <option value="Greek" name="cuisine">Greek</option>
+                        <option value="Thai" name="cuisine">Thai</option>
+                        <option value="French" name="cuisine">French</option>
+                        <option value="Spanish" name="cuisine">Spanish</option>
+                        <option value="Arabic" name="cuisine">Arabic</option>
+                        <option value="Persian" name="cuisine">Persian</option>
+                    </select>
+                </div>
+                <div class="col-auto my-1">
+                    <select name="allergens" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                        <option selected>Allergens...</option>
+                        <option value="Pepper" name="allergens">Pepper</option>
+                        <option value="Egg" name="allergens">Egg</option>
+                        <option value="Bacon" name="allergens">Bacon</option>
+                        <option value="Nutmeg" name="allergens">Nutmeg</option>
+                        <option value="Seafood" name="allergens">Seafood</option>
+                        <option value="Turmeric" name="allergens">Turmeric</option>
+                    </select>
+                </div>
+                <div class="col-auto my-1">
+                    <select name="author" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                        <option selected>Author...</option>
+                        <option value="Sophia Anderson" name="author">Sophia Anderson</option>
+                        <option value="Ronnie Frank" name="author">Ronnie Frank</option>
+                        <option value="Frank Hill" name="author">Frank Hill</option>
+                        <option value="Claire Brown" name="author">Claire Brown</option>
+                        <option value="Sophia Barry" name="author">Sophia Barry</option>
+                        <option value="John Brown" name="author">John Brown</option>
+                        <option value="Gracie Anderson" name="author">Gracie Anderson</option>
+                    </select>
+                </div>
+                <div class="col-auto my-1">
+                    <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>
+        </form>
+    </div>
+    <!--Show all recipes-->
+    <div class="container">
+        <div class="row">
+            {% for rec in recipes %} 
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <a href="{{url_for('recipe', recipe_id = rec._id)}}">
+                        <img class="card-img-top pictures" src="{{ rec.image }}" alt="Image for {{ rec.name }}"></img>
+                    <div class="card-body text-center">
+                        <h4>{{ rec.name }}</h4></a>
+                        <p>{{ rec.description }}</p>
+                    </div>
+                    <div class="card-title text-center text-muted">
+                        <span>By {{ rec.author }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-    </div>    
+    </div>
 </div>
 {% endblock %}
-                
-                
-                
-                
-            
-            
-
-
-                
-                     
-                     
-                      
-                    
-                    
-                    
-                    
-                    
-                    
-					
