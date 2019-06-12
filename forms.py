@@ -20,7 +20,7 @@ class LoginForm(FlaskForm):
     remember = StringField('Remember Me')
     submit = SubmitField('Login')
     
-# SelectMultipleField for the Allergens
+# Variable declaration for the Allergens SelectMultipleField 
 class MultiCheckboxField(SelectMultipleField):
     widget = widgets.ListWidget(prefix_label=False)
     option_widget = widgets.CheckboxInput()
