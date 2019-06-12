@@ -1,0 +1,99 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>{{ page_title }}</h1>
+        <p>Here you can add your very own recipe!
+    </div>
+
+    <div class="row insert_recipe-form">
+        <div class="col-md-12 mx-auto">
+            <form action="{{url_for('insert_recipe')}}" method="POST">
+                 {{ form.hidden_tag() }}
+                <fieldset>
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="text-center">Add your Recipe</h1>
+                        <div class="form-group">
+                            {{ form.image.label(class="form-control-label") }}
+                            {{ form.image(class="form-control is-invalid", placeholder="https://image.com/cheescake.jpg") }}
+                        </div>    
+                    </div>
+                    <div class="col-sm-12 col-md-12">
+                        <div class="form-group">
+                            {{ form.notes.label(class="form-control-label") }}
+                            {{ form.notes(class="form-control is-invalid", placeholder="Delicious homemade cheesecake recipe") }}
+                        </div>   
+                    </div>
+                    <div class="col-sm-12 col-md-12">
+                        <div class="form-group">
+                            {{ form.name.label(class="form-control-label") }}
+                            {{ form.name(class="form-control is-invalid", placeholder="Cheescake") }}
+                        </div>    
+                    <div>
+                    <div class="form-row">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                {{ form.author.label(class="form-control-label") }}
+                                {{ form.author(class="form-control is-invalid", placeholder="Author Name") }}
+                            </div>   
+                        </div>
+                        <div class="col-sm-6 col-md-6 ">
+                            <div class="form-group">
+                                {{ form.cuisine.label(class="form-control-label") }}
+                                {{ form.cuisine(class="form-control is-invalid", placeholder="Italian") }}
+                            </div>   
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-6 col-md-6 co-lg-6">
+                            <div class="form-group">
+                                {{ form.course.label(class="form-control-label") }}
+                                {{ form.course(class="form-control is-invalid") }}
+                            </div>   
+                        </div>
+                        <div class="col-sm-12 col-md-6 co-lg-6">
+                            <div class="form-group">
+                               
+                                {{ form.allergens.label(class="form-control-label" ) }}
+                                {{ form.allergens(class="form-control is-invalid fas fa-angle-down text-center") }}
+                            </div>   
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                               
+                                {{ form.ingredient.label(class="form-control-label") }}
+                                {{ form.ingredient(class="form-control is-invalid", placeholder="1/4 cup granulated sugar") }}
+                            </div>   
+                            <!--buttons to add or remove input fields-->
+                            <div class="addRemove">
+                                <button type="button" value="add-row" id="addrow"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                <button type="button" value="remove-row" id="removerow"><i class="fa fa-minus" aria-hidden="true"></i></button>    
+                            </div>            
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                {{ form.step.label(class="form-control-label") }}
+                                {{ form.step(class="form-control is-invalid", placeholder="Preheat oven to 350°F") }}
+                            </div> 
+                             <!--buttons to add or remove input fields-->
+                            <div class="addRemove">
+                                <button type="button" value="add-row" id="addrowSteps"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                <button type="button" value="remove-row" id="removerowSteps"><i class="fa fa-minus" aria-hidden="true"></i></button>    
+                            </div>  
+                        </div>
+                    </div>
+                    <div>
+                        {{ form.submit(class="btn btn-md btn-secondary submitFormButton ") }}
+                    </div>    
+                </fieldset>
+            </form>
+            
+        </div>
+    </div>
+</div>
+                    
+{% endblock %}
