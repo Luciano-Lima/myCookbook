@@ -5,6 +5,10 @@ body, html {
 	padding: 0;
 }
 
+.container {
+    padding-bottom: 30px;
+}
+
 .backImg {
 	background-repeat: no-repeat;
 	background-position: center;
@@ -68,4 +72,29 @@ body, html {
 #footer {
     background-color: #212529;
     
+}
+
+        /*insert recipe form*/
+
+.insert_recipe-form {
+    padding-bottom: 10%;
+}
+
+.submitFormButton {
+	margin-top: 15px;
+}
+
+#editDelRecepButtons {
+    text-align: center;
+}
+
+.addRemove {
+    display: inline;
+}
+
+.form-group li {
+    list-style: none;
+    text-align: left;
+    margin-top: 18px;
+    margin-left: 50%;
 }
