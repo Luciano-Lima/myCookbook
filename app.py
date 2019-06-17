@@ -6,9 +6,20 @@ from bson.objectid import ObjectId
 from forms import RegisterForm, LoginForm, AddRecipeForm
 
 #App config
+
+MONGODB_URI = os.environ.get('MONGODB_URI')
+SECRET_KEY = os.environ.get('MONGODB_NAME')
+
 app = Flask(__name__)
-app.config['MONGO_URI'] = os.environ.get("MONGO_URI")
-app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
+
+#wtfform secret key
+app.secret_key = '123456789'
+
+
+
+
+
+
 
 #wtfform secret key
 app.secret_key = '123456789'
