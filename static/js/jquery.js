@@ -1,14 +1,28 @@
 //Add aditional ingredient row
 $(document).ready(function(){
 	$('#addrow').click(function() {
-		$('<input class="form-control is-invalid" id="ingredient" name="ingredient" required type="text" value=""><br>').insertBefore('#addrow');	
+		$('<input class="form-control is-invalid" id="ingredient" name="ingredient" required type="text" value="">').insertBefore('#addrow');	
 		
 	});	
+	
+	// Remove aditional row
+	$('#removerow').click(function() {
+		$('#ingredientList input:last').remove();
+	});
+	
+	
 	//Add aditional preparations step row
 	$('#addrowSteps').click(function() {
-		$('<input class="form-control is-invalid" id="step" name="step" required type="text" value=""><br>').insertBefore('#addrowSteps');
+		$('<input class="form-control is-invalid" id="step" name="step" required type="text" value="">').insertBefore('#addrowSteps');
 
 	});	
+	
+	
+		// Remove aditional preparation step row
+	$('#removerowSteps').click(function() {
+		$('#stepList input:last').remove();
+	});
+	
 	
 	// Hide allergens menu
 	$('#allergens li').hide() 
@@ -20,9 +34,7 @@ $(document).ready(function(){
 	    	
 	});
 	
-		// // $('#removerow').click(function() {
-	// // 	$('#ingredients input:last').remove();
-	// // });
+	
 	    
 });	
 	
