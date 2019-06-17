@@ -98,3 +98,12 @@ body, html {
     margin-top: 18px;
     margin-left: 50%;
 }
+
+#ingredientList {
+    padding: 1px;
+}
+
+#stepList {
+    padding: 1px;
+}
+
