@@ -100,10 +100,20 @@ body, html {
 }
 
 #ingredientList {
-    padding: 1px;
+    margin: 5px;
 }
 
 #stepList {
-    padding: 1px;
+    margin: 5px;
 }
+
+#stepList button {
+    margin: 8px;
+}
+
+#ingredientList button {
+    margin: 8px;
+}
+
+
 
