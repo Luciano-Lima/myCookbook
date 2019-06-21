@@ -1,26 +1,41 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="container registration">
-    <h1 class="text-center uppercase">Login to your account to get started!</h1>
+     <h1 class="text-center">{{ page_title }}</h1>
     <hr>
     <div class="row">
         <div class="col-md-5 mx-auto">
             <form method="POST" action="">
                 {{ form.hidden_tag() }}
-                <fieldset>
-                    <span class="text-muted">Existing User Login</span>
+                <fieldset class="form-group">
+                    <div><span class="text-muted text-center">Need an account? <a href="{{url_for('register')}}">Register.</a></span></div>
                     <hr>
+                    <div class="form-group">
+                        {{ form.username.label(class="form-control-label") }}
+                        <!--Check for error in the form input-->
+                        {% if form.username.errors %}
+                                {{ form.username(class="form-control is-invalid") }} 
+                            <div class="invalid-feedback">
+                                {% for error in form.username.errors %}
+                                <!--displaying to the user a message error-->
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.username(class="form-control") }}
+                        {% endif %}
+                    </div>
                     <div class="form-group">
                         {{ form.email.label(class="form-control-label") }}
                         <!--Check for error in the form input-->
                         {% if form.email.errors %}
-                            {{ form.email(class="form-control is-invalid") }} 
-                        <div class="invalid-feedback">
-                            {% for error in form.email.errors %}
-                            <!--displaying to the user a message error-->
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
+                                {{ form.email(class="form-control is-invalid") }} 
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                <!--displaying to the user a message error-->
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
                         {% else %}
                             {{ form.email(class="form-control") }}
                         {% endif %}
@@ -29,13 +44,13 @@
                         {{ form.password.label(class="form-control-label") }}
                         <!--Check for error in the form input-->
                         {% if form.password.errors %}
-                            {{ form.password(class="form-control is-invalid") }} 
-                        <div class="invalid-feedback">
-                            {% for error in form.password.errors %}
-                            <!--displaying to the user a message error-->
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
+                                {{ form.password(class="form-control is-invalid") }} 
+                            <div class="invalid-feedback">
+                                {% for error in form.password.errors %}
+                                <!--displaying to the user a message error-->
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
                         {% else %}
                             {{ form.password(class="form-control") }}
                         {% endif %}
@@ -45,7 +60,7 @@
                         {{ form.remember.label(class="form-check-label") }}
                     </div>
                 </fieldset>
-                <div>
+                <div class="form-group">
                     {{ form.submit(class="btn btn-md btn-primary") }}
                 </div>
             </form>
