@@ -1,27 +1,28 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="container registration">
-    <h1 class="text-center">Sign in Today to Add your Own Recipes</h1>
+    <h1 class="text-center">{{ page_title }}</h1>
     <hr>
     <div class="row">
         <div class="col-md-5 mx-auto">
             <form method="POST" action="">
+                <!--Protect the form against csrf attacks-->
                 {{ form.hidden_tag() }}
                 <div><span class="text-muted text-center">Already have an account? <a href="{{url_for('login')}}">Sign In.</a></span></div>
                 <hr>
                 <fieldset>
-                    <span><strong>Sign UP Now!</strong></span>
+                    
                     <div class="form-group">
                         {{ form.username.label(class="form-control-label") }}
                         <!--Check for error in the form input-->
                         {% if form.username.errors %}
                             {{ form.username(class="form-control is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.username.errors %}
-                                <!--displaying to the user a message error-->
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
+                            <div class="invalid-feedback">
+                                {% for error in form.username.errors %}
+                                    <!--displaying to the user a message error-->
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
                         {% else %}
                             {{ form.username(class="form-control") }}
                         {% endif %}
@@ -30,13 +31,13 @@
                         {{ form.email.label(class="form-control-label") }}
                         <!--Check for error in the form input-->
                         {% if form.email.errors %}
-                            {{ form.email(class="form-control is-invalid") }} 
-                        <div class="invalid-feedback">
-                            {% for error in form.email.errors %}
-                            <!--displaying to the user a message error-->
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
+                                {{ form.email(class="form-control is-invalid") }} 
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                <!--displaying to the user a message error-->
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
                         {% else %}
                             {{ form.email(class="form-control") }}
                         {% endif %}
@@ -45,13 +46,13 @@
                         {{ form.password.label(class="form-control-label") }}
                         <!--Check for error in the form input-->
                         {% if form.password.errors %}
-                            {{ form.password(class="form-control is-invalid") }} 
-                        <div class="invalid-feedback">
-                            {% for error in form.password.errors %}
-                            <!--displaying to the user a message error-->
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
+                                {{ form.password(class="form-control is-invalid") }} 
+                            <div class="invalid-feedback">
+                                {% for error in form.password.errors %}
+                                <!--displaying to the user a message error-->
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
                         {% else %}
                             {{ form.password(class="form-control") }}
                         {% endif %}
@@ -60,13 +61,13 @@
                         {{ form.confirm_password.label(class="form-control-label") }}
                         <!--Check for error in the form input-->
                         {% if form.confirm_password.errors %}
-                            {{ form.confirm_password(class="form-control is-invalid") }} 
-                        <div class="invalid-feedback">
-                            {% for error in form.confirm_password.errors %}
-                            <!--displaying to the user a message error-->
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
+                                {{ form.confirm_password(class="form-control is-invalid") }} 
+                            <div class="invalid-feedback">
+                                {% for error in form.confirm_password.errors %}
+                                <!--displaying to the user a message error-->
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
                         {% else %}
                             {{ form.confirm_password(class="form-control") }}
                         {% endif %}
