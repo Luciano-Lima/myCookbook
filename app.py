@@ -161,7 +161,12 @@ def login():
     return render_template('login.html', page_title='User Login', form=form)   
     
             
-
+#User logout
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    flash('You have been logout', 'success')
+    return redirect(url_for('login'))
 
     
 if __name__ == '__main__':
