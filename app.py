@@ -19,7 +19,6 @@ mongo = PyMongo(app)
 recipes_coll = mongo.db.recipes
 
 
-
 #Home
 @app.route('/')
 @app.route('/index')
@@ -81,11 +80,38 @@ def insert_recipe():
         
 
 # Edit recipe
-@app.route('/edit_recipe/<recipes_id>', methods= ['GET', 'POST'])
+class AttributeDict(dict): 
+    __getattr__ = dict.__getitem__
+    __setattr__ = dict.__setitem__
+    
+@app.route('/edit_recipe/<recipes_id>', methods = ['GET', 'POST'])  
 def edit_recipe(recipes_id):
-    form = AddRecipeForm()
     recipes = recipes_coll.find_one({"_id": ObjectId(recipes_id)})
-    return render_template('editrecipe.html', page_title="Edit your Recipe", recipes=recipes, form=form)
+    # recipes = AttributeDict()
+    form = AddRecipeForm(obj=recipes)
+    if form.validate_on_submit():
+        recipes.image = form.image.data
+        recipes.step = form.step.data
+        recipes.allergens = form.allergens.data
+        recipes.course = form.course.data
+        recipes.ingredient = form.ingredient.data
+        recipes.cuisine = form.cuisine.data
+        recipes.author = form.author.data
+        recipes.name = form.name.data
+        recipes.notes = form.notes.data
+        form.populate_obj(recipes)
+        return redirect(url_for('recipes'))
+    elif request.method == "GET":
+        form.image.data = recipes['image']
+        form.step.data = recipes['step']
+        form.allergens.data = recipes['allergens']
+        form.course.data = recipes['course']
+        form.ingredient.data = recipes['ingredient']
+        form.cuisine.data = recipes['cuisine']
+        form.notes.data = recipes['notes']
+        form.author.data = recipes['author']
+        form.name.data = recipes['name']
+    return render_template('editrecipe.html',recipes=recipes,page_title='Edit your Recipe', form=form)
     
     
 # User registration
