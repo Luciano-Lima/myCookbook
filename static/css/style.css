@@ -6,7 +6,8 @@ body, html {
 }
 
 .container {
-    padding-bottom: 30px;
+    margin-bottom: 50px;
+    margin-top: 50px;
 }
 
 .backImg {
@@ -67,12 +68,7 @@ body, html {
     list-style-type: circle;
 }
 
-    /*footer*/
-        
-#footer {
-    background-color: #212529;
-    
-}
+ 
 
         /*insert recipe form*/
 
@@ -117,3 +113,9 @@ body, html {
 
 
 
+   /*footer*/
+        
+#footer {
+    background-color: #212529;
+    
+}
