@@ -113,6 +113,14 @@ def edit_recipe(recipes_id):
         form.name.data = recipes['name']
     return render_template('editrecipe.html',recipes=recipes,page_title='Edit your Recipe', form=form)
     
+
+# Delete recipe
+@app.route('/delete_recipe/<recipes_id>')
+def delete_recipe(recipes_id):
+    recipes = recipes_coll.remove({"_id": ObjectId(recipes_id)})
+    flash('Recipe has been deleted', 'success')
+    return redirect(url_for('recipes'))    
+
     
 # User registration
 @app.route('/register', methods = ['GET', 'POST'])
