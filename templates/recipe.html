@@ -3,7 +3,6 @@
     <div class="jumbotron text-center">
         <h1>{{ page_title }}</h1>
     </div>
-
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="each-rec-picture">
@@ -23,7 +22,6 @@
                 <p>{{ recipes.description }}</p>
                 <p>{{ recipes.notes }}</p>
             </div>
-               
             <hr>
             <div class="ingredientes">
                 <h3 class="text-center">Ingredients</h3>
@@ -32,7 +30,6 @@
                         <li>{{ ingredient }}</li>
                     </ul>
                 {% endfor %}
-                
             </div>
             <hr>
             <div class="prep-steps">
@@ -42,7 +39,6 @@
                         <li>{{ step }}</li>
                     </ul>
                 {% endfor %}
-                
             </div>
             <hr>
             <div class="row">
@@ -67,7 +63,7 @@
     <!--Edit/Delete recipe button-->
     <div class="container text-center">
         <a href={{url_for('edit_recipe', recipes_id=recipes._id)}}><button type="button" class="btn btn-primary btn-sm ">Edit Recipe</button></a>
-        <button type="button" class="btn btn-secondary btn-sm">Delete Recipe</button>
+        <a href={{url_for('delete_recipe', recipes_id=recipes._id)}}><button type="button" class="btn btn-primary btn-sm ">Delete Recipe</button></a>
     </div>
 </div>
 {% endblock %}
