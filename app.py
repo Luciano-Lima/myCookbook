@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template, redirect, request, url_for, flash
+from flask import Flask, render_template, redirect, request, url_for, flash, session
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from forms import RegisterForm, LoginForm, AddRecipeForm
@@ -13,15 +13,6 @@ app.config['SECRET_KEY']=os.environ.get("SECRET_KEY")
 #wtfform secret key
 app.secret_key = '123456789'
 
-
-
-
-
-
-
-#wtfform secret key
-app.secret_key = '123456789'
-
 mongo = PyMongo(app)
 
 #Collection
@@ -29,13 +20,15 @@ recipes_coll = mongo.db.recipes
 
 
 
-# home
+#Home
 @app.route('/')
 @app.route('/index')
 def index():
+    if 'username' in session:
+        flash('You are already logged in as ' + session['username'])
     return render_template('index.html')
     
-
+    
 #All recipes 
 @app.route('/recipes')
 def recipes():
@@ -50,7 +43,7 @@ def recipe(recipe_id):
     return render_template('recipe.html', page_title="Easy and Quick Recipes" , recipes=recipes)
    
 
-# Filter recipes
+#Filter recipes
 @app.route('/filter_recipes', methods = ['GET','POST'])
 def filter_recipes():
     if request.method == 'POST':
@@ -91,44 +84,49 @@ def insert_recipe():
 @app.route('/edit_recipe/<recipes_id>', methods= ['GET', 'POST'])
 def edit_recipe(recipes_id):
     form = AddRecipeForm()
-    recipes_to_edit = recipes_coll.find_one({"_id": ObjectId(recipes_id)})
-    all_recipes = recipes_coll.find()
-    return render_template('editrecipe.html', page_title="Edit your Recipe", cookBook=recipes_to_edit, recipes=all_recipes, form=form)
+    recipes = recipes_coll.find_one({"_id": ObjectId(recipes_id)})
+    return render_template('editrecipe.html', page_title="Edit your Recipe", recipes=recipes, form=form)
     
     
-
-
-
-    
-
-
-
-
-
-
-#User registration
+# User registration
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
-    form =  RegisterForm()
-    #checking for data validation on Post
+    form = RegisterForm()
     if form.validate_on_submit():
-         flash('Hi {}, your account has been created!'.format({form.username.data}), 'success')
-         return redirect(url_for('index'))
-    return render_template('register.html', page_title="New User Register", form=form)  
+        users = mongo.db.users
+        existing_user = users.find_one({'name': request.form['username']})
+        
+        if existing_user is None:
+            users.insert({'name': request.form['username'], 'email': request.form['email'],'password': request.form['password'] })
+            session['username'] = request.form['username']
+            flash('Welcome {}, you are registered!'.format(form.username.data), 'success')
+            return redirect(url_for('recipes'))
+        flash('Username already exists!', 'danger')
+    return render_template('register.html', page_title='New user Registration', form=form)
+        
     
-    
-
 #User login
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     form = LoginForm()
     #checking for data validation on Post
     if form.validate_on_submit():
-        flash('Your are logged in', 'success')
-        return redirect(url_for('index'))
-    else:
+        users = mongo.db.users
+        login_user = users.find_one({'name':request.form['username']})
+        if login_user:
+            if (request.form['password'] == login_user['password']):
+            
+                session['username'] = request.form['username']
+                flash('Welcome {}, you are logged in!'.format(form.username.data), 'success')
+                return redirect(url_for('recipes'))
+        #     if 'username' in session:
+        #         flash('You are already logged in as ' + session['username'])
+        #         return redirect(url_for('index'))
         flash('Please check your details and try again', 'danger')
-    return render_template('login.html', page_title='User Login', form=form)        
+    
+    return render_template('login.html', page_title='User Login', form=form)   
+    
+            
 
 
     
