@@ -6,7 +6,7 @@
     </div>
     <div class="row insert_recipe-form">
         <div class="col-md-12 mx-auto">
-            <form action="{{url_for('edit_recipe', recipes_id=recipes._id)}}" method="POST">
+            <form action="{{url_for('update_recipe', recipes_id=recipes._id)}}" method="POST">
                  {{ form.hidden_tag() }}
                 <fieldset>
                     <div class="col-sm-12 col-md-12">
