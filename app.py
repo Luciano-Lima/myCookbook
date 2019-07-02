@@ -87,7 +87,6 @@ class AttributeDict(dict):
 @app.route('/edit_recipe/<recipes_id>', methods = ['GET', 'POST'])  
 def edit_recipe(recipes_id):
     recipes = recipes_coll.find_one({"_id": ObjectId(recipes_id)})
-    # recipes = AttributeDict()
     form = AddRecipeForm(obj=recipes)
     if form.validate_on_submit():
         recipes.image = form.image.data
@@ -112,6 +111,41 @@ def edit_recipe(recipes_id):
         form.author.data = recipes['author']
         form.name.data = recipes['name']
     return render_template('editrecipe.html',recipes=recipes,page_title='Edit your Recipe', form=form)
+    
+    
+
+# Update recipe
+# @app.route('/update_recipe/<recipes_id>', methods = ['GET','POST'])  
+# def update_recipe(recipes_id):
+#     recipes = recipes_coll
+#     # form = AddRecipeForm()
+#     recipes.update({"_id": ObjectId(recipes_id)},
+#     {
+#         'image':request.form.get('image')
+#     })
+#     return redirect(url_for('recipes'))
+    
+@app.route('/update_recipe/<recipes_id>', methods = ['GET','POST'])  
+def update_recipe(recipes_id):
+    recipes = recipes_coll
+    recipes.update({"_id": ObjectId(recipes_id)},
+    {
+        'image':request.form.get('image'),
+        'step':request.form.get('step'),
+        'allergens':request.form.get('allergens'),
+        'course':request.form.get('course'),
+        'ingredient':request.form.get('ingredient'),
+        'cuisine':request.form.get('cuisine'),
+        'notes':request.form.get('notes'),
+        'author':request.form.get('author'),
+        'name':request.form.get('name')
+        
+    })
+    return redirect(url_for('recipes'))
+   
+    
+    
+    
     
 
 # Delete recipe
