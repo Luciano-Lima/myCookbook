@@ -115,26 +115,16 @@ def edit_recipe(recipes_id):
     
 
 # Update recipe
-# @app.route('/update_recipe/<recipes_id>', methods = ['GET','POST'])  
-# def update_recipe(recipes_id):
-#     recipes = recipes_coll
-#     # form = AddRecipeForm()
-#     recipes.update({"_id": ObjectId(recipes_id)},
-#     {
-#         'image':request.form.get('image')
-#     })
-#     return redirect(url_for('recipes'))
-    
 @app.route('/update_recipe/<recipes_id>', methods = ['GET','POST'])  
 def update_recipe(recipes_id):
     recipes = recipes_coll
     recipes.update({"_id": ObjectId(recipes_id)},
     {
         'image':request.form.get('image'),
-        'step':request.form.get('step'),
-        'allergens':request.form.get('allergens'),
+        'step':request.form.getlist('step'),
+        'allergens':request.form.getlist('allergens'),
         'course':request.form.get('course'),
-        'ingredient':request.form.get('ingredient'),
+        'ingredient':request.form.getlist('ingredient'),
         'cuisine':request.form.get('cuisine'),
         'notes':request.form.get('notes'),
         'author':request.form.get('author'),
@@ -142,11 +132,8 @@ def update_recipe(recipes_id):
         
     })
     return redirect(url_for('recipes'))
+         
    
-    
-    
-    
-    
 
 # Delete recipe
 @app.route('/delete_recipe/<recipes_id>')
