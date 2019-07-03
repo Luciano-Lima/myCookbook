@@ -23,8 +23,8 @@ recipes_coll = mongo.db.recipes
 @app.route('/')
 @app.route('/index')
 def index():
-    if 'username' in session:
-        flash('You are already logged in as ' + session['username'])
+    # if 'username' in session:
+    #     flash('You are already logged in as ' + session['username'])
     return render_template('index.html')
     
     
@@ -110,6 +110,7 @@ def edit_recipe(recipes_id):
         form.notes.data = recipes['notes']
         form.author.data = recipes['author']
         form.name.data = recipes['name']
+        
     return render_template('editrecipe.html',recipes=recipes,page_title='Edit your Recipe', form=form)
     
     
@@ -131,6 +132,7 @@ def update_recipe(recipes_id):
         'name':request.form.get('name')
         
     })
+    
     return redirect(url_for('recipes'))
          
    
@@ -154,8 +156,8 @@ def register():
         if existing_user is None:
             users.insert({'name': request.form['username'], 'email': request.form['email'],'password': request.form['password'] })
             session['username'] = request.form['username']
-            flash('Welcome {}, you are registered!'.format(form.username.data), 'success')
-            return redirect(url_for('recipes'))
+            flash('Welcome {}, you are registered! You can login to your account now.'.format(form.username.data), 'success')
+            return redirect(url_for('login'))
         flash('Username already exists!', 'danger')
     return render_template('register.html', page_title='New user Registration', form=form)
         
@@ -167,24 +169,26 @@ def login():
     #checking for data validation on Post
     if form.validate_on_submit():
         users = mongo.db.users
-        login_user = users.find_one({'name':request.form['username']})
+        login_user = users.find_one({'name':request.form['username'], 'email': request.form['email']})
         if login_user:
+            if 'username' in session:
+                flash('You are already logged in as ' + session['username'], 'success')
+                return redirect(url_for('recipes'))
             if (request.form['password'] == login_user['password']):
-            
                 session['username'] = request.form['username']
                 flash('Welcome {}, you are logged in!'.format(form.username.data), 'success')
                 return redirect(url_for('recipes'))
-        #     if 'username' in session:
-        #         flash('You are already logged in as ' + session['username'])
-        #         return redirect(url_for('index'))
+            
         flash('Please check your details and try again', 'danger')
     
     return render_template('login.html', page_title='User Login', form=form)   
+            
     
             
 #User logout
 @app.route('/logout')
 def logout():
+    #remove the user from the session
     session.pop('username', None)
     flash('You have been logout', 'success')
     return redirect(url_for('login'))
