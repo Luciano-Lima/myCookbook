@@ -5,17 +5,37 @@ body, html {
 	padding: 0;
 }
 
-.container {
-    margin-bottom: 50px;
-    margin-top: 50px;
+/*Navbar background color;*/
+.bg-dark {
+    background-color: #59c058f7!important;
 }
 
+/*Background img for home page*/
 .backImg {
 	background-repeat: no-repeat;
 	background-position: center;
     background-size: cover;
     width: 100%;
+    position: absolute;
 }
+
+
+.container {
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+
+#homeJumbotron {
+    float: right;
+     margin-top: 4rem;
+     width: inherit;
+}
+
 
 .jumbotron {
     padding: 2rem 1rem;
@@ -23,6 +43,11 @@ body, html {
     background-color: #e9ecef;
     border-radius: 1.5rem;
     opacity: .8;
+}
+
+.jumbTitle {
+    font-size: 50px;
+    font-family: 'Literata', serif;
 }
 
     /*Browse recipes*/
