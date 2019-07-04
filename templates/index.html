@@ -1,15 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 
-   <div class="container">
-      <div class="jumbotron text-center">
-         <h1>Welcome to Cookbook</h1>
-         <p>Your very own personal recipe organiser!
-         <p><strong>Sign Up</strong> now to add your recipes</p>
-      </div>
-   </div>
-   <div class="container-fluid">
+   
+   <div class="container-fluid ">
       <img class="backImg" src="/static/assets/pictures/background.jpg"></img>
    </div>
+   <div class="container">
+      <div id="homeJumbotron">
+         <div class="jumbotron text-center">
+            <div class="jumbTitle">
+               <h1><strong>Welcome to Cookbook</strong></h1>
+               <p>Your very own personal recipe organiser!
+               <p><strong><a href="{{url_for('register')}}">Sign Up</strong></a> now to add your recipes</p>
+            </div>
+         </div>
+      </div>
+   </div>
+   
       
 {% endblock %}
