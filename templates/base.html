@@ -41,7 +41,7 @@
 		    </div>
 	    </nav>
 	</header>
-	<div class="container-fluid">
+	<!--<div class="container-fluid">-->
 		<!--Displays flash message -->
 		{% with messages = get_flashed_messages(with_categories=true) %}
 			{% if messages %}
@@ -54,8 +54,8 @@
 		{% endwith %}
 		
 		{% block content %} {% endblock %}
-	</div>
-    <footer id="footer" class="container-fluid fixed-bottom">
+	<!--</div>-->
+    <footer id="footer" class="container-fluid fixed-bottom bg-dark">
 		<div class="col-12 text-center">
 			<a href="https://twitter.com/" target="_blank">
 				<i class="fab fa-twitter fa-2x" aria-hidden="true"></i>
