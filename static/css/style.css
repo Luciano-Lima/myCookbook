@@ -109,6 +109,16 @@ body, html {
     width: 100%;
     height: auto
 }
+
+.rec-info {
+   
+    font-weight: 600;
+    margin: 10px;
+}
+
+.rec-info-desc {
+   font-family: 'Mountains of Christmas', cursive;
+}
         
 .prep-steps ul li {
     list-style-type: circle;
@@ -128,6 +138,18 @@ body, html {
 
 #editDelRecepButtons {
     text-align: center;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #5ec25d;
+     border-color: #e9ecef;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #d88b64c9;
+    border-color: #f8f9fa;
 }
 
 .addRemove {
