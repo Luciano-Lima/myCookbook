@@ -3,60 +3,63 @@
     <div class="jumbotron text-center">
         <h1>{{ page_title }}</h1>
     </div>
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="each-rec-picture">
-                <img class="card-img-top each-recipe-pict" src="{{ recipes.image }}" alt="Image for {{ recipes.name }}"></img>
-            </div>
-            <div class="cuisine">
-                <span>Cuisine {{ recipes.cuisine }}</span>
-                {% for a in recipes.allergens %}
-                <span>Allergens {{ a }}</span>
-                {% endfor %}
-                <span>By {{ recipes.author }}</span>
-            </div> 
-            <div class="card-body text-center">
-                <h2>{{ recipes.name }}</h2>
-            </div>    
-            <div class="rec-description text-center">
-                <p>{{ recipes.description }}</p>
-                <p>{{ recipes.notes }}</p>
-            </div>
-            <hr>
-            <div class="ingredientes">
-                <h3 class="text-center">Ingredients</h3>
-                {% for ingredient in recipes.ingredient %}
-                    <ul>
-                        <li>{{ ingredient }}</li>
-                    </ul>
-                {% endfor %}
-            </div>
-            <hr>
-            <div class="prep-steps">
-                <h4 class="text-center">Preparation Steps</h4> 
-                {% for step in recipes.step %}
-                    <ul>
-                        <li>{{ step }}</li>
-                    </ul>
-                {% endfor %}
-            </div>
-            <hr>
+    <div class="container">
+        <div class="card each-recipe-pict">
             <div class="row">
-                {% for rec in recipes.ingredientGroup %}
-                <div class="col-sm-12 col-md-6 col-lg-4">
-                    <h5 class="text-center">{{ rec.name }}</h5>
-                    <div class="row">
-                        {% for ingredient in rec.ingredient %} 
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <img class="card-img-top" src="{{ recipes.image }}" alt="Image for {{ recipes.name }}"></img>
+                    <div class="cuisine">
+                        <span class="rec-info">Cuisine: </span><span class="rec-info-desc">{{ recipes.cuisine }}</span> 
+                        <span class="rec-info">Allergens:</span>
+                        {% for a in recipes.allergens %}
+                        <span class="rec-info-desc">{{ a }}</span>
+                        {% endfor %}
+                        <span class="rec-info">By:</span><span class="rec-info-desc"> {{ recipes.author }}</span>
+                    </div> 
+                    <div class="card-body text-center">
+                        <h2>{{ recipes.name }}</h2>
+                    </div>    
+                    <div class="rec-description text-center">
+                        <p>{{ recipes.description }}</p>
+                   
+                        <p>{{ recipes.notes }}</p>
+                    </div>
+                    <hr>
+                    <div class="ingredientes">
+                        <h3 class="text-center">Ingredients</h3>
+                        {% for ingredient in recipes.ingredient %}
                             <ul>
-                                {{ingredient.amount}}
-                                {{ingredient.unit}}
-                                {{ingredient.name}}
-                                {{ingredient.preparation}}
+                                <li>{{ ingredient }}</li>
                             </ul>
-                        {% endfor %} 
+                        {% endfor %}
+                    </div>
+                    <hr>
+                    <div class="prep-steps">
+                        <h4 class="text-center">Preparation Steps</h4> 
+                        <!--{% for step in recipes.step %}-->
+                            <ul>
+                                <li>{{ step }}</li>
+                            </ul>
+                        <!--{% endfor %}-->
+                    </div>
+                    <div class="row">
+                        {% for rec in recipes.ingredientGroup %}
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                            <h5 class="text-center">{{ rec.name }}</h5>
+                            <div class="row">
+                                {% for ingredient in rec.ingredient %} 
+                                    <ul>
+                                        {{ingredient.amount}}
+                                        {{ingredient.unit}}
+                                        {{ingredient.name}}
+                                        {{ingredient.preparation}}
+                                    </ul>
+                                {% endfor %} 
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>
