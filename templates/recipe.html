@@ -2,6 +2,7 @@
 <div class="container">
     <div class="jumbotron text-center">
         <h1>{{ page_title }}</h1>
+        <p>Ideas for when you're not sure what to make that are simple to prepare and fast to cook!!</p>
     </div>
     <div class="container">
         <div class="card each-recipe-pict">
@@ -9,7 +10,7 @@
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <img class="card-img-top" src="{{ recipes.image }}" alt="Image for {{ recipes.name }}"></img>
                     <div class="cuisine">
-                        <span class="rec-info">Cuisine: </span><span class="rec-info-desc">{{ recipes.cuisine }}</span> 
+                        <span class="rec-info">Cuisine:</span><span class="rec-info-desc">{{ recipes.cuisine }}</span> 
                         <span class="rec-info">Allergens:</span>
                         {% for a in recipes.allergens %}
                         <span class="rec-info-desc">{{ a }}</span>
