@@ -4,7 +4,7 @@ from flask import Flask, render_template, redirect, request, url_for, flash, ses
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from forms import RegisterForm, LoginForm, AddRecipeForm
-
+from flask_login import  LoginManager, login_user, login_required
 #App config
 app = Flask(__name__)
 app.config['MONGO_URI']=os.environ.get("MONGO_URI")
@@ -14,6 +14,9 @@ app.config['SECRET_KEY']=os.environ.get("SECRET_KEY")
 app.secret_key = '123456789'
 
 mongo = PyMongo(app)
+login_manager = LoginManager(app)
+login_manager.login_view = "login"
+login_manager.login_message_category = "info"
 
 #Collection
 recipes_coll = mongo.db.recipes
@@ -23,9 +26,8 @@ recipes_coll = mongo.db.recipes
 @app.route('/')
 @app.route('/index')
 def index():
-    # if 'username' in session:
-    #     flash('You are already logged in as ' + session['username'])
-    return render_template('index.html')
+    recipes = recipes_coll.find()
+    return render_template('index.html', recipes=recipes)
     
     
 #All recipes 
@@ -60,6 +62,7 @@ def add_recipe():
     
 # Insert recipe    
 @app.route('/insert_recipe', methods = ['GET', 'POST'])
+@login_required
 def insert_recipe(): 
     form = AddRecipeForm()
     recipes = recipes_coll
@@ -77,6 +80,7 @@ def insert_recipe():
             'ingredient': ingredient, 'step': step })
         return redirect(url_for('recipes'))  
     return render_template('addrecipe.html', page_title="Add your Own Recipe", form=form)
+    
         
 
 # Edit recipe
@@ -85,6 +89,7 @@ class AttributeDict(dict):
     __setattr__ = dict.__setitem__
     
 @app.route('/edit_recipe/<recipes_id>', methods = ['GET', 'POST'])  
+@login_required
 def edit_recipe(recipes_id):
     recipes = recipes_coll.find_one({"_id": ObjectId(recipes_id)})
     form = AddRecipeForm(obj=recipes)
@@ -130,15 +135,13 @@ def update_recipe(recipes_id):
         'notes':request.form.get('notes'),
         'author':request.form.get('author'),
         'name':request.form.get('name')
-        
     })
-    
     return redirect(url_for('recipes'))
-         
-   
-
+        
+    
 # Delete recipe
 @app.route('/delete_recipe/<recipes_id>')
+@login_required
 def delete_recipe(recipes_id):
     recipes = recipes_coll.remove({"_id": ObjectId(recipes_id)})
     flash('Recipe has been deleted', 'success')
@@ -168,8 +171,8 @@ def login():
     form = LoginForm()
     #checking for data validation on Post
     if form.validate_on_submit():
-        users = mongo.db.users
-        login_user = users.find_one({'name':request.form['username'], 'email': request.form['email']})
+        user = mongo.db.users
+        login_user = user.find_one({'name':request.form['username'], 'email': request.form['email']})
         if login_user:
             if 'username' in session:
                 flash('You are already logged in as ' + session['username'], 'success')
@@ -182,9 +185,8 @@ def login():
         flash('Please check your details and try again', 'danger')
     
     return render_template('login.html', page_title='User Login', form=form)   
-            
     
-            
+    
 #User logout
 @app.route('/logout')
 def logout():
@@ -192,9 +194,11 @@ def logout():
     session.pop('username', None)
     flash('You have been logout', 'success')
     return redirect(url_for('login'))
-
     
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
             debug=True)
+         
+   
