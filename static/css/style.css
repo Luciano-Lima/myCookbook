@@ -145,6 +145,21 @@ a:hover {
     list-style-type: circle;
 }
 
+ 
+
+ /*Counter button*/
+
+.btn-counter:after {
+  border-radius: 3px;
+  border: 1px solid #d3d3d3;
+  background-color: #eee;
+  padding: 0 8px;
+  color: #777;
+  content: attr(data-count);
+  
+ }
+
+
      /*---------------------------------*/
 
 /*insert recipe form*/
