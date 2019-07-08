@@ -35,8 +35,31 @@ $(document).ready(function(){
 	});
 	
 	
-	    
+	// Love button
+ 
+	$('.btn-counter').on('click', function() {
+	  
+	  
+	  var $this = $(this),
+	      count = $this.attr('data-count'),
+	      multiple = $this.hasClass('multiple-count');
+		 $this.attr('data-count', multiple ? ++ count : --count  );
+	      
+	  
+		});
+  
+  
 });	
+  
+  
+  
+	
+	
+	
+	
+	
+	
+	    
 	
 	
 
