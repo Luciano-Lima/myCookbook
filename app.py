@@ -4,7 +4,7 @@ from flask import Flask, render_template, redirect, request, url_for, flash, ses
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from forms import RegisterForm, LoginForm, AddRecipeForm
-from flask_login import  LoginManager, login_user, login_required
+
 #App config
 app = Flask(__name__)
 app.config['MONGO_URI']=os.environ.get("MONGO_URI")
@@ -14,9 +14,7 @@ app.config['SECRET_KEY']=os.environ.get("SECRET_KEY")
 app.secret_key = '123456789'
 
 mongo = PyMongo(app)
-login_manager = LoginManager(app)
-login_manager.login_view = "login"
-login_manager.login_message_category = "info"
+
 
 #Collection
 recipes_coll = mongo.db.recipes
@@ -62,7 +60,6 @@ def add_recipe():
     
 # Insert recipe    
 @app.route('/insert_recipe', methods = ['GET', 'POST'])
-@login_required
 def insert_recipe(): 
     form = AddRecipeForm()
     recipes = recipes_coll
@@ -80,6 +77,7 @@ def insert_recipe():
             'ingredient': ingredient, 'step': step })
         return redirect(url_for('recipes'))  
     return render_template('addrecipe.html', page_title="Add your Own Recipe", form=form)
+
     
         
 
@@ -89,7 +87,6 @@ class AttributeDict(dict):
     __setattr__ = dict.__setitem__
     
 @app.route('/edit_recipe/<recipes_id>', methods = ['GET', 'POST'])  
-@login_required
 def edit_recipe(recipes_id):
     recipes = recipes_coll.find_one({"_id": ObjectId(recipes_id)})
     form = AddRecipeForm(obj=recipes)
@@ -117,6 +114,7 @@ def edit_recipe(recipes_id):
         form.name.data = recipes['name']
         
     return render_template('editrecipe.html',recipes=recipes,page_title='Edit your Recipe', form=form)
+
     
     
 
@@ -141,11 +139,11 @@ def update_recipe(recipes_id):
     
 # Delete recipe
 @app.route('/delete_recipe/<recipes_id>')
-@login_required
 def delete_recipe(recipes_id):
     recipes = recipes_coll.remove({"_id": ObjectId(recipes_id)})
     flash('Recipe has been deleted', 'success')
     return redirect(url_for('recipes'))    
+
 
     
 # User registration
@@ -200,5 +198,3 @@ if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
             debug=True)
-         
-   
