@@ -38,9 +38,11 @@
                     <hr>
                     <div class="prep-steps">
                         <h4 class="text-center">Preparation Steps</h4> 
+                        {% for step in recipes.step %}
                             <ul>
                                 <li>{{ step }}</li>
                             </ul>
+                        {% endfor %}
                     </div>
                     <hr>
                     <div class="row ingredient-group">
