@@ -60,7 +60,9 @@
                         <div class="col-sm-12 col-md-12">
                             <div class="form-group">
                                 {{ form.ingredient.label(class="form-control-label") }}
-                                {{ form.ingredient(class="form-control is-invalid", placeholder="1/4 cup granulated sugar") }}
+                                    {% for item in recipes.ingredient %}
+                                        <input class="form-control is-invalid field-padding" value="{{ item }}">
+                                    {% endfor %}
                             </div>   
                             <!--buttons to add or remove input fields-->
                             <div class="addRemove">
@@ -73,7 +75,9 @@
                         <div class="col-sm-12 col-md-12">
                             <div class="form-group">
                                 {{ form.step.label(class="form-control-label") }}
-                                {{ form.step(class="form-control is-invalid", placeholder="Preheat oven to 350°F") }}
+                                    {% for item in recipes.step %}
+                                        <input class="form-control is-invalid field-padding" value="{{ item }}">
+                                    {% endfor %}
                             </div> 
                              <!--buttons to add or remove input fields-->
                             <div class="addRemove" id="stepList">
@@ -87,11 +91,9 @@
                     </div>    
                 </fieldset>
             </form>
+                                
         </div>
     </div>
 </div>
 {% endblock %}
-                               
-                       
-                               
-        
+                                
