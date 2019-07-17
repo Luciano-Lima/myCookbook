@@ -1,7 +1,7 @@
 //Add aditional ingredient row
 $(document).ready(function(){
 	$('#addrow').click(function() {
-		$('<input class="form-control is-invalid" id="ingredient" name="ingredient" required type="text" value="">').insertBefore('#addrow');	
+		$('<input class="form-control is-invalid field-padding" id="ingredient" name="ingredient" required type="text" value="">').insertBefore('#addrow');	
 		
 	});	
 	
@@ -13,7 +13,7 @@ $(document).ready(function(){
 	
 	//Add aditional preparations step row
 	$('#addrowSteps').click(function() {
-		$('<input class="form-control is-invalid" id="step" name="step" required type="text" value="">').insertBefore('#addrowSteps');
+		$('<input class="form-control is-invalid field-padding" id="step" name="step" required type="text" value="">').insertBefore('#addrowSteps');
 
 	});	
 	

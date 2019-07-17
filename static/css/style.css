@@ -1,10 +1,10 @@
 body, html {
-	height: 100%;
 	margin: 0;
-	background-color: #e9ecef70;
+	background-color: #f0f2f4;
 	padding: 0;
 	color: #2d3136;
 }
+
         /*---------------------------------*/
         
 a {
@@ -27,7 +27,7 @@ a:hover {
 /*Navbar background color;*/
 .bg-dark {
     background-color: #59c058f7!important;
-    padding: 0 20% 0 20%;
+    padding: 0 10% 0 10%;
 }
 
 .navbar-dark .navbar-nav .nav-link {
@@ -62,8 +62,9 @@ a:hover {
 
 #homeJumbotron {
     float: right;
-     margin-top: 4rem;
-     width: inherit;
+    margin-top: 4rem;
+    width: inherit;
+    color: #5c5d4d;
 }
 
 .jumbotron {
@@ -145,7 +146,11 @@ a:hover {
     list-style-type: circle;
 }
 
- 
+.ingred-group-amount {
+    display: block;
+    text-align: center;
+}
+    
 
  /*Counter button*/
 
@@ -179,10 +184,22 @@ a:hover {
 .btn-primary {
     color: #fff;
     background-color: #5ec25d;
-     border-color: #e9ecef;
+    border-color: #e9ecef;
 }
 
 .btn-primary:hover {
+    color: #fff;
+    background-color: #d88b64c9;
+    border-color: #f8f9fa;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #5ec25d;
+    border-color: #e9ecef;
+}
+
+.btn-secondary:hover {
     color: #fff;
     background-color: #d88b64c9;
     border-color: #f8f9fa;
@@ -199,12 +216,16 @@ a:hover {
     margin-left: 50%;
 }
 
-#ingredientList {
-    margin: 5px;
+.form-control {
+    border-color: #28a74552;
 }
 
-#stepList {
-    margin: 5px;
+.form-control.is-invalid, .was-validated .form-control:invalid {
+    border-color: #28a74552;
+}
+
+.field-padding {
+	margin-top: 5px;
 }
 
 #stepList button {
@@ -221,5 +242,21 @@ a:hover {
         
 #footer {
     background-color: #212529;
-    
+}
+ 
+.fab {
+    margin: 6px;
+}   
+
+          /*---------------------------------*/
+/*Media querie*/
+@media (max-width: 768px) {
+.container {
+    padding: 0;
+}
+
+.form-wrapper {
+    display: inline;
+}
+
 }

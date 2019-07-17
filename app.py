@@ -104,16 +104,17 @@ def edit_recipe(recipes_id):
         return redirect(url_for('recipes'))
     elif request.method == "GET":
         form.image.data = recipes['image']
-        form.step.data = recipes['step']
+        form.step.data = ''.join(recipes['step'])
         form.allergens.data = recipes['allergens']
         form.course.data = recipes['course']
-        form.ingredient.data = recipes['ingredient']
+        form.ingredient.data = ''.join(recipes['ingredient'])
         form.cuisine.data = recipes['cuisine']
         form.notes.data = recipes['notes']
         form.author.data = recipes['author']
         form.name.data = recipes['name']
         
     return render_template('editrecipe.html',recipes=recipes,page_title='Edit your Recipe', form=form)
+         
 
     
     
