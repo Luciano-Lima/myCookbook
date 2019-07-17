@@ -117,8 +117,6 @@ def edit_recipe(recipes_id):
          
 
     
-    
-
 # Update recipe
 @app.route('/update_recipe/<recipes_id>', methods = ['GET','POST'])  
 def update_recipe(recipes_id):
