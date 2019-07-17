@@ -17,16 +17,7 @@
                         {% endfor %}
                         <span class="rec-info">By:</span><span class="rec-info-desc"> {{ recipes.author }}</span>
                         <span class="btn btn-counter multiple-count" data-count="0">&#x2764;</span>
-                        
                     </div> 
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     <div class="card-body text-center">
                         <h2>{{ recipes.name }}</h2>
                     </div>    
@@ -47,17 +38,16 @@
                     <hr>
                     <div class="prep-steps">
                         <h4 class="text-center">Preparation Steps</h4> 
-                        <!--{% for step in recipes.step %}-->
                             <ul>
                                 <li>{{ step }}</li>
                             </ul>
-                        <!--{% endfor %}-->
                     </div>
-                    <div class="row">
+                    <hr>
+                    <div class="row ingredient-group">
                         {% for rec in recipes.ingredientGroup %}
-                        <div class="col-sm-12 col-md-6 col-lg-4">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
                             <h5 class="text-center">{{ rec.name }}</h5>
-                            <div class="row">
+                            <div class="row ingred-group-amount">
                                 {% for ingredient in rec.ingredient %} 
                                     <ul>
                                         {{ingredient.amount}}
@@ -81,3 +71,5 @@
     </div>
 </div>
 {% endblock %}
+                       
+                        
