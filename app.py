@@ -4,6 +4,7 @@ from flask import Flask, render_template, redirect, request, url_for, flash, ses
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from forms import RegisterForm, LoginForm, AddRecipeForm
+from flask_login import LoginManager, login_user, login_required
 
 #App config
 app = Flask(__name__)
@@ -19,6 +20,16 @@ mongo = PyMongo(app)
 #Collection
 recipes_coll = mongo.db.recipes
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    import pdb;pdb.set_trace()
+    user = mongo.db.user
+    return user.find_one({"_id": ObjectId(user_id)})
+    
 
 #Home
 @app.route('/')
@@ -86,8 +97,10 @@ class AttributeDict(dict):
     __getattr__ = dict.__getitem__
     __setattr__ = dict.__setitem__
     
-@app.route('/edit_recipe/<recipes_id>', methods = ['GET', 'POST'])  
+@app.route('/edit_recipe/<recipes_id>', methods = ['GET', 'POST']) 
+@login_required
 def edit_recipe(recipes_id):
+
     recipes = recipes_coll.find_one({"_id": ObjectId(recipes_id)})
     form = AddRecipeForm(obj=recipes)
     if form.validate_on_submit():
@@ -168,13 +181,14 @@ def login():
     form = LoginForm()
     #checking for data validation on Post
     if form.validate_on_submit():
-        user = mongo.db.users
-        login_user = user.find_one({'name':request.form['username'], 'email': request.form['email']})
-        if login_user:
+        User = mongo.db.users
+        user = User.find_one({'name':request.form['username'], 'email': request.form['email']})
+        login_user(user)
+        if user:
             if 'username' in session:
                 flash('You are already logged in as ' + session['username'], 'success')
                 return redirect(url_for('recipes'))
-            if (request.form['password'] == login_user['password']):
+            if (request.form['password'] == user['password']):
                 session['username'] = request.form['username']
                 flash('Welcome {}, you are logged in!'.format(form.username.data), 'success')
                 return redirect(url_for('recipes'))
