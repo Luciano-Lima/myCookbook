@@ -5,7 +5,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from forms import RegisterForm, LoginForm, AddRecipeForm
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin, current_user
-# from flask_bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt
 
 
 #App config
@@ -17,7 +17,7 @@ app.config['SECRET_KEY']=os.environ.get("SECRET_KEY")
 app.secret_key = '123456789'
 
 mongo = PyMongo(app)
-# bcrypt = Bcrypt(app)
+bcrypt = Bcrypt(app)
 
 #Collection
 recipes_coll = mongo.db.recipes
