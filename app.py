@@ -4,7 +4,9 @@ from flask import Flask, render_template, redirect, request, url_for, flash, ses
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from forms import RegisterForm, LoginForm, AddRecipeForm
-from flask_login import LoginManager, login_user, login_required
+from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin, current_user
+# from flask_bcrypt import Bcrypt
+
 
 #App config
 app = Flask(__name__)
@@ -15,7 +17,7 @@ app.config['SECRET_KEY']=os.environ.get("SECRET_KEY")
 app.secret_key = '123456789'
 
 mongo = PyMongo(app)
-
+# bcrypt = Bcrypt(app)
 
 #Collection
 recipes_coll = mongo.db.recipes
@@ -23,13 +25,17 @@ recipes_coll = mongo.db.recipes
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-
+# @login_manager.user_loader
+# def load_user(user_id):
+#     user = mongo.db.users
+#     return user.find_one({"_id": ObjectId(user_id)})
+   
 @login_manager.user_loader
 def load_user(user_id):
-    import pdb;pdb.set_trace()
-    user = mongo.db.user
-    return user.find_one({"_id": ObjectId(user_id)})
-    
+    users = mongo.db.users
+    user_id = users.find_one({'_id': ObjectId(user_id)})
+    return User(user_id)
+
 
 #Home
 @app.route('/')
@@ -98,9 +104,8 @@ class AttributeDict(dict):
     __setattr__ = dict.__setitem__
     
 @app.route('/edit_recipe/<recipes_id>', methods = ['GET', 'POST']) 
-@login_required
-def edit_recipe(recipes_id):
 
+def edit_recipe(recipes_id):
     recipes = recipes_coll.find_one({"_id": ObjectId(recipes_id)})
     form = AddRecipeForm(obj=recipes)
     if form.validate_on_submit():
@@ -127,6 +132,8 @@ def edit_recipe(recipes_id):
         form.name.data = recipes['name']
         
     return render_template('editrecipe.html',recipes=recipes,page_title='Edit your Recipe', form=form)
+    
+
          
 
     
@@ -157,57 +164,61 @@ def delete_recipe(recipes_id):
     return redirect(url_for('recipes'))    
 
 
-    
+
 # User registration
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        users = mongo.db.users
-        existing_user = users.find_one({'name': request.form['username']})
-        
-        if existing_user is None:
-            users.insert({'name': request.form['username'], 'email': request.form['email'],'password': request.form['password'] })
+        User = mongo.db.users
+        user = User.find_one({'name': request.form['username']})
+        if user is None:
+            User.insert({'name': request.form['username'], 'email': request.form['email'],'password': request.form['password'] })
             session['username'] = request.form['username']
             flash('Welcome {}, you are registered! You can login to your account now.'.format(form.username.data), 'success')
             return redirect(url_for('login'))
         flash('Username already exists!', 'danger')
     return render_template('register.html', page_title='New user Registration', form=form)
-        
     
-#User login
-@app.route('/login', methods = ['GET', 'POST'])
+            
+#User class
+class User(UserMixin):
+    def __init__(self, user_id):
+        self.user_id = user_id
+
+    # Overriding object id to get the user id 
+    def get_id(self):
+        object_id = self.user_id.get('_id')
+        return str(object_id)
+    
+
+@app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    #checking for data validation on Post
     if form.validate_on_submit():
-        User = mongo.db.users
-        user = User.find_one({'name':request.form['username'], 'email': request.form['email']})
-        login_user(user)
+        users = mongo.db.users
+        user = users.find_one({'name':request.form['username'], 'email': request.form['email']})
         if user:
-            if 'username' in session:
-                flash('You are already logged in as ' + session['username'], 'success')
-                return redirect(url_for('recipes'))
-            if (request.form['password'] == user['password']):
-                session['username'] = request.form['username']
-                flash('Welcome {}, you are logged in!'.format(form.username.data), 'success')
-                return redirect(url_for('recipes'))
-            
-        flash('Please check your details and try again', 'danger')
+            # Create a custom loginuser class to pass it to user
+            loginuser = User(user)
+            login_user(loginuser, remember=form.data)
+            flash('Welcome {}, you are logged in!'.format(form.username.data), 'success')
+            return redirect(url_for('recipes'))
+        else:
+            flash('Please check your details and try again', 'danger')
+    return render_template('login.html', page_title='User Login', form=form)
     
-    return render_template('login.html', page_title='User Login', form=form)   
-    
-    
+
+   
 #User logout
 @app.route('/logout')
 def logout():
-    #remove the user from the session
-    session.pop('username', None)
-    flash('You have been logout', 'success')
-    return redirect(url_for('login'))
+    logout_user()
+    return redirect(url_for('index'))
     
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
             debug=True)
+    
