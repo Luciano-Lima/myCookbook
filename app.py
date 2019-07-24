@@ -17,6 +17,7 @@ app.config['SECRET_KEY']=os.environ.get("SECRET_KEY")
 app.secret_key = '123456789'
 
 mongo = PyMongo(app)
+# intializind bcrypt
 bcrypt = Bcrypt(app)
 
 #Collection
@@ -25,10 +26,7 @@ recipes_coll = mongo.db.recipes
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-# @login_manager.user_loader
-# def load_user(user_id):
-#     user = mongo.db.users
-#     return user.find_one({"_id": ObjectId(user_id)})
+
    
 @login_manager.user_loader
 def load_user(user_id):
@@ -134,9 +132,7 @@ def edit_recipe(recipes_id):
     return render_template('editrecipe.html',recipes=recipes,page_title='Edit your Recipe', form=form)
     
 
-         
 
-    
 # Update recipe
 @app.route('/update_recipe/<recipes_id>', methods = ['GET','POST'])  
 def update_recipe(recipes_id):
@@ -171,9 +167,10 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         User = mongo.db.users
-        user = User.find_one({'name': request.form['username']})
+        pw_hash = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User.find_one({'username': request.form['username']})
         if user is None:
-            User.insert({'name': request.form['username'], 'email': request.form['email'],'password': request.form['password'] })
+            User.insert({'username': request.form['username'], 'email': request.form['email'],'password': pw_hash })
             session['username'] = request.form['username']
             flash('Welcome {}, you are registered! You can login to your account now.'.format(form.username.data), 'success')
             return redirect(url_for('login'))
@@ -197,7 +194,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         users = mongo.db.users
-        user = users.find_one({'name':request.form['username'], 'email': request.form['email']})
+        user = users.find_one({'name':request.form['username'], 'password': request.form['password']})
         if user:
             # Create a custom loginuser class to pass it to user
             loginuser = User(user)
