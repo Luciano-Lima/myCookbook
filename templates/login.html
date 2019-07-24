@@ -11,18 +11,18 @@
                     <div><span class="text-muted text-center">Need an account? <a href="{{url_for('register')}}">Register.</a></span></div>
                     <hr>
                     <div class="form-group">
-                        {{ form.email.label(class="form-control-label") }}
+                        {{ form.username.label(class="form-control-label") }}
                         <!--Check for error in the form input-->
-                        {% if form.email.errors %}
-                                {{ form.email(class="form-control is-invalid") }} 
+                        {% if form.username.errors %}
+                                {{ form.username(class="form-control is-invalid") }} 
                             <div class="invalid-feedback">
-                                {% for error in form.email.errors %}
+                                {% for error in form.username.errors %}
                                 <!--displaying to the user a message error-->
                                     <span>{{ error }}</span>
                                 {% endfor %}
                             </div>
                         {% else %}
-                            {{ form.email(class="form-control") }}
+                            {{ form.username(class="form-control") }}
                         {% endif %}
                     </div>
                     <div class="form-group">
