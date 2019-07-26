@@ -17,7 +17,7 @@ app.config['SECRET_KEY']=os.environ.get("SECRET_KEY")
 app.secret_key = '123456789'
 
 mongo = PyMongo(app)
-# intializind bcrypt
+# intialising bcrypt
 bcrypt = Bcrypt(app)
 
 #Collection
@@ -166,8 +166,8 @@ def delete_recipe(recipes_id):
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        User = mongo.db.users
         pw_hash = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        User = mongo.db.users
         user = User.find_one({'username': request.form['username']})
         if user is None:
             User.insert({'username': request.form['username'], 'email': request.form['email'],'password': pw_hash })
@@ -176,8 +176,9 @@ def register():
             return redirect(url_for('login'))
         flash('Username already exists!', 'danger')
     return render_template('register.html', page_title='New user Registration', form=form)
+        
+        
     
-            
 #User class
 class User(UserMixin):
     def __init__(self, user_id):
@@ -188,14 +189,14 @@ class User(UserMixin):
         object_id = self.user_id.get('_id')
         return str(object_id)
     
-
+# User login
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
         users = mongo.db.users
-        user = users.find_one({'name':request.form['username'], 'password': request.form['password']})
-        if user:
+        user = users.find_one({'name':request.form['username']})
+        if user and bcrypt.check_password_hash(user['password'], form.password.data):
             # Create a custom loginuser class to pass it to user
             loginuser = User(user)
             login_user(loginuser, remember=form.data)
@@ -204,6 +205,7 @@ def login():
         else:
             flash('Please check your details and try again', 'danger')
     return render_template('login.html', page_title='User Login', form=form)
+            
     
 
    
