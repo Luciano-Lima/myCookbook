@@ -195,9 +195,9 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         users = mongo.db.users
-        user = users.find_one({'name':request.form['username']})
+        user = users.find_one({'username':request.form['username']})
         if user and bcrypt.check_password_hash(user['password'], form.password.data):
-            # Create a custom loginuser class to pass it to user
+            # Create a custom loginuser class to pass it to user to get is_active
             loginuser = User(user)
             login_user(loginuser, remember=form.data)
             flash('Welcome {}, you are logged in!'.format(form.username.data), 'success')
