@@ -27,7 +27,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 
-   
+# User section manager  
 @login_manager.user_loader
 def load_user(user_id):
     users = mongo.db.users
@@ -138,6 +138,7 @@ def edit_recipe(recipes_id):
 @app.route('/update_recipe/<recipes_id>', methods = ['GET','POST'])  
 def update_recipe(recipes_id):
     recipes = recipes_coll
+    print(request.form)
     recipes.update({"_id": ObjectId(recipes_id)},
     {
         'image':request.form.get('image'),
