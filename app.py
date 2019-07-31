@@ -62,12 +62,13 @@ def recipe(recipe_id):
 def filter_recipes():
     if request.method == 'POST':
         recipes = recipes_coll.find({ "$or": [ { "course": request.form["course"] }, { "cuisine": request.form["cuisine"] }, { "allergens": request.form["allergens"] }, { "author": request.form["author"] }] })
-        print(recipes)
-        # print(list(recipes))
+        print(request.form)
         return render_template('recipes.html', recipes=recipes)
     return render_template('recipes.html', recipes=recipes)
-    
-
+        
+       
+        
+        
 # Add recipe view
 @app.route('/add_recipe')
 def add_recipe():
