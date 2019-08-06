@@ -35,6 +35,10 @@ a:hover {
     color: #fff;
     font-size: 1.5em;
 }
+
+.fas {
+  padding-right: 10px;
+}
         /*---------------------------------*/
 /*Background img for home page*/
 .backImg {
@@ -247,6 +251,13 @@ a:hover {
 
 .form-wrapper {
     display: inline;
+}
+
+}
+
+@media (min-width: 769px) {
+.fas {
+    display: none;
 }
 
 }
