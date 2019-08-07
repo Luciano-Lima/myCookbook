@@ -46,7 +46,7 @@ $(document).ready(function(){
 
 // Show/Hide the scroll top arrow
 	$(window).scroll(function() {
-		if($(this).scrollTop() > 300) {
+		if($(this).scrollTop() > 50) {
 			$('#scroll-arrow').fadeIn();
 		} else {
 			$('#scroll-arrow').fadeOut();
@@ -58,7 +58,7 @@ $(document).ready(function(){
 	 $('#scroll-arrow').click(function() {
 	 	$('html, body').animate({
 	 		scrollTop:0
-	 	},2500);
+	 	},1500);
 	 	
 	 });
   

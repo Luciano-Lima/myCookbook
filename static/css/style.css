@@ -243,24 +243,21 @@ a:hover {
 } 
 
 /*Scroll to top button*/
-.scroll-top {
+.fa-chevron-circle-up {
     position: fixed;
     bottom: 60px;
     right: 20px;
     font-size: 24px;
     height: 40px; 
+    cursor: pointer;
+}
+
+#scroll-arrow {
+  display: none;
 }
 
 
-.fa-arrow-up {
-    color: #e9ecef;
-    background: #1fa2b8;
-    width: 40px;
-    height: 30px;
-    text-align: center;
-    padding-left: 10px;
-    
-}
+
    
 
         /*---------------------------------*/
