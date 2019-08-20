@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, SelectMultipleField, MultipleFileField, widgets
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, SelectMultipleField, MultipleFileField, widgets, validators
 from wtforms.validators import DataRequired, Length, EqualTo, Email
-
+from wtforms.fields.html5 import  URLField
 
 #User registration form
 class RegisterForm(FlaskForm):
@@ -28,16 +28,16 @@ class MultiCheckboxField(SelectMultipleField):
 
 #Add recipe form
 class AddRecipeForm(FlaskForm):
-    image = StringField('Recipe Picture', validators=[DataRequired()])
-    name = StringField('Recipe Name', validators=[DataRequired()])
-    notes = StringField('Short Description', validators=[DataRequired()])
-    author = StringField('Author Name', validators=[DataRequired()])
+    image = URLField('Recipe Picture', validators=[DataRequired()])
+    name = StringField('Recipe Name', validators=[DataRequired(),Length(min=4, max=50)])
+    notes = StringField('Short Description', validators=[DataRequired(),Length(min=4, max=100)])
+    author = StringField('Author Name', validators=[DataRequired(),Length(min=4, max=20)])
     course = SelectField('Course', choices= [('main','Main'), ('starter','Starter'),('salad','Salad'),('dessert','Dessert')] ,validators=[DataRequired()])
-    cuisine = StringField('Cuisine', validators=[DataRequired()])
+    cuisine = StringField('Cuisine', validators=[DataRequired(),Length(min=4, max=20)])
     string_of_files = ['Egg\r\nBacon\r\nPepper\r\nNutmeg\r\nSeafood\r\nTurmeric']
     list_of_files = string_of_files[0].split()
     files = [(x, x) for x in list_of_files]
     allergens = MultiCheckboxField('Allergens', choices=files, render_kw={"placeholder": "Choose..."})
-    ingredient = StringField('Ingredients', validators=[DataRequired()])
-    step = StringField('Preparation Steps', validators=[DataRequired()])
+    ingredient = StringField('Ingredients', validators=[DataRequired(),Length(min=4, max=200)])
+    step = StringField('Preparation Steps', validators=[DataRequired(),Length(min=4, max=200)])
     submit = SubmitField('Submit')
