@@ -1,99 +1,151 @@
 {% extends 'base.html' %} {% block content %}
-
+<!--Jumbotron-->
 <div class="container">
     <div class="jumbotron text-center">
         <h1>{{ page_title }}</h1>
         <p>Here you can add your very own recipe!
     </div>
-
+    <!--Insert recipe form-->
     <div class="row insert_recipe-form">
         <div class="col-md-12 mx-auto">
             <form action="{{url_for('insert_recipe')}}" method="POST">
-                 {{ form.hidden_tag() }}
+                {{ form.hidden_tag() }}
                 <fieldset>
                     <div class="col-sm-12 col-md-12">
                         <h1 class="text-center">Add your Recipe</h1>
                         <div class="form-group">
-                            {{ form.image.label(class="form-control-label") }}
-                            {{ form.image(class="form-control is-invalid", placeholder="https://image.com/cheescake.jpg") }}
-                        </div>    
+                            {{ form.image.label(class="form-control-label") }} {{ form.image(class="form-control is-invalid", placeholder="https://image.com/cheescake.jpg") }}
+                        </div>
                     </div>
                     <div class="col-sm-12 col-md-12">
                         <div class="form-group">
                             {{ form.notes.label(class="form-control-label") }}
-                            {{ form.notes(class="form-control is-invalid", placeholder="Delicious homemade cheesecake recipe") }}
-                        </div>   
+                            <!--Check for error in the form input-->
+                            {% if form.notes.errors %} {{ form.notes(class="form-control is-invalid", placeholder="Delicious homemade cheesecake recipe") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.notes.errors %}
+                                <!--displaying to the user a message error-->
+                                <span>{{ error }}</span> {% endfor %}
+                            </div>
+                            {% else %} {{ form.notes(class="form-control", placeholder="Delicious homemade cheesecake recipe") }} {% endif %}
+                        </div>
                     </div>
                     <div class="col-sm-12 col-md-12">
                         <div class="form-group">
                             {{ form.name.label(class="form-control-label") }}
-                            {{ form.name(class="form-control is-invalid", placeholder="Cheescake") }}
-                        </div>    
-                    <div>
-                    <div class="form-row">
-                        <div class="col-sm-6 col-md-6">
-                            <div class="form-group">
-                                {{ form.author.label(class="form-control-label") }}
-                                {{ form.author(class="form-control is-invalid", placeholder="Author Name") }}
-                            </div>   
+                            <!--Check for error in the form input-->
+                            {% if form.name.errors %} {{ form.name(class="form-control is-invalid", placeholder="Cheesecake") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.name.errors %}
+                                <!--displaying to the user a message error-->
+                                <span>{{ error }}</span> {% endfor %}
+                            </div>
+                            {% else %} {{ form.name(class="form-control", placeholder="Cheesecake") }} {% endif %}
                         </div>
-                        <div class="col-sm-6 col-md-6 ">
-                            <div class="form-group">
-                                {{ form.cuisine.label(class="form-control-label") }}
-                                {{ form.cuisine(class="form-control is-invalid", placeholder="Italian") }}
-                            </div>   
+                        <div class="form-row">
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    {{ form.author.label(class="form-control-label") }}
+                                    <!--Check for error in the form input-->
+                                    {% if form.author.errors %} {{ form.author(class="form-control is-invalid", placeholder="Author Name") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.author.errors %}
+                                        <!--displaying to the user a message error-->
+                                        <span>{{ error }}</span> {% endfor %}
+                                    </div>
+                                    {% else %} {{ form.author(class="form-control", placeholder="Author Name") }} {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 ">
+                                <div class="form-group">
+                                    {{ form.cuisine.label(class="form-control-label") }}
+                                    <!--Check for error in the form input-->
+                                    {% if form.cuisine.errors %} {{ form.cuisine(class="form-control is-invalid", placeholder="Italian") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.cuisine.errors %}
+                                        <!--displaying to the user a message error-->
+                                        <span>{{ error }}</span> {% endfor %}
+                                    </div>
+                                    {% else %} {{ form.cuisine(class="form-control", placeholder="Italian") }} {% endif %}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-sm-6 col-md-6 co-lg-6">
-                            <div class="form-group">
-                                {{ form.course.label(class="form-control-label") }}
-                                {{ form.course(class="form-control is-invalid") }}
-                            </div>   
+                        <div class="form-row">
+                            <div class="col-sm-6 col-md-6 co-lg-6">
+                                <div class="form-group">
+                                    {{ form.course.label(class="form-control-label") }}
+                                    <!--Check for error in the form input-->
+                                    {% if form.course.errors %} {{ form.course(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.cuisine.errors %}
+                                        <!--displaying to the user a message error-->
+                                        {{ form.course(class="form-control is-invalid") }}
+                                        <span>{{ error }}</span> {% endfor %}
+                                    </div>
+                                    {% else %} {{ form.course(class="form-control") }} {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 co-lg-6">
+                                <div class="form-group">
+                                    {{ form.allergens.label(class="form-control-label" ) }}
+                                    <!--Check for error in the form input-->
+                                    {% if form.allergens.errors %} {{ form.allergens(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.cuisine.errors %}
+                                        <!--displaying to the user a message error-->
+                                        {{ form.allergens(class="form-control is-invalid") }}
+                                        <span>{{ error }}</span> {% endfor %}
+                                    </div>
+                                    {% else %} {{ form.allergens(class="form-control is-invalid fa fa-angle-down text-center") }} {% endif %}
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-12 col-md-6 co-lg-6">
-                            <div class="form-group">
-                               
-                                {{ form.allergens.label(class="form-control-label" ) }}
-                                {{ form.allergens(class="form-control is-invalid fas fa-angle-down text-center") }}
-                            </div>   
+                        <div class="form-row">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    {{ form.ingredient.label(class="form-control-label") }}
+                                    <!--Check for error in the form input-->
+                                    {% if form.ingredient.errors %} {{ form.ingredient(class="form-control is-invalid", placeholder="1/4 cup granulated sugar") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.ingredient.errors %}
+                                        <!--displaying to the user a message error-->
+                                        <span>{{ error }}</span> {% endfor %}
+                                    </div>
+                                    {% else %} {{ form.ingredient(class="form-control", placeholder="1/4 cup granulated sugar") }} {% endif %}
+                                </div>
+                                <!--buttons to add or remove input fields-->
+                                <div class="addRemove" id="ingredientList">
+                                    <button type="button" value="add-row" id="addrow"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                    <button type="button" value="remove-row" id="removerow"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-sm-12 col-md-12">
-                            <div class="form-group">
-                               
-                                {{ form.ingredient.label(class="form-control-label") }}
-                                {{ form.ingredient(class="form-control is-invalid", placeholder="1/4 cup granulated sugar") }}
-                            </div>   
-                            <!--buttons to add or remove input fields-->
-                            <div class="addRemove"id="ingredientList">
-                                <button type="button" value="add-row" id="addrow"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                                <button type="button" value="remove-row" id="removerow"><i class="fa fa-minus" aria-hidden="true"></i></button>    
-                            </div>            
+                        <div class="form-row">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    {{ form.step.label(class="form-control-label") }}
+                                    <!--Check for error in the form input-->
+                                    {% if form.step.errors %} {{ form.step(class="form-control is-invalid", placeholder="Preheat oven to 350°F") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.step.errors %}
+                                        <!--displaying to the user a message error-->
+                                        <span>{{ error }}</span> {% endfor %}
+                                    </div>
+                                    {% else %} {{ form.step(class="form-control", placeholder="Preheat oven to 350°F") }} {% endif %}
+                                </div>
+                                <!--buttons to add or remove input fields-->
+                                <div class="addRemove" id="stepList">
+                                    <button type="button" value="add-row" id="addrowSteps"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                    <button type="button" value="remove-row" id="removerowSteps"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-sm-12 col-md-12">
-                            <div class="form-group">
-                                {{ form.step.label(class="form-control-label") }}
-                                {{ form.step(class="form-control is-invalid", placeholder="Preheat oven to 350°F") }}
-                            </div> 
-                             <!--buttons to add or remove input fields-->
-                            <div class="addRemove" id="stepList">
-                                <button type="button" value="add-row" id="addrowSteps"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                                <button type="button" value="remove-row" id="removerowSteps"><i class="fa fa-minus" aria-hidden="true"></i></button>    
-                            </div>  
-                        </div>
-                    </div>
                     <div>
                         {{ form.submit(class="btn btn-md btn-secondary submitFormButton ") }}
-                    </div>    
+                    </div>
                 </fieldset>
             </form>
-            
         </div>
     </div>
 </div>
-                    
 {% endblock %}
