@@ -102,15 +102,13 @@
                             <div class="col-sm-12 col-md-12">
                                 <div class="form-group">
                                     {{ form.ingredient.label(class="form-control-label") }}
-                                    <!--Check for error in the form input-->
-                                    {% if form.ingredient.errors %} {{ form.ingredient(class="form-control is-invalid", placeholder="1/4 cup granulated sugar") }}
-                                    <div class="invalid-feedback">
-                                        {% for error in form.ingredient.errors %}
-                                        <!--displaying to the user a message error-->
-                                        <span>{{ error }}</span> {% endfor %}
-                                    </div>
-                                    {% else %} {{ form.ingredient(class="form-control", placeholder="1/4 cup granulated sugar") }} {% endif %}
+                                        {% for item in recipes.ingredient %}
+                                        <div class="newfield">
+                                            <input class="form-control is invalid field-padding newfield" value={{item}}>
+                                        </div>    
+                                        {% endfor %}
                                 </div>
+                                    
                                 <!--buttons to add or remove input fields-->
                                 <div class="addRemove" id="ingredientList">
                                     <button type="button" value="add-row" id="addrow"><i class="fa fa-plus" aria-hidden="true"></i></button>
