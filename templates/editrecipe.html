@@ -101,15 +101,18 @@
                         <div class="form-row">
                             <div class="col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    {{ form.ingredient.label(class="form-control-label") }}
-                                        {% for item in recipes.ingredient %}
-                                        <div class="newfield">
-                                            <input class="form-control is invalid field-padding newfield" value={{item}}>
-                                        </div>    
-                                        {% endfor %}
+                                    {{ form.ingredient.label(class="form-control-label newfield") }}
+                                    <!--Check for error in the form input-->
+                                    {% if form.ingredient.errors %} {{ form.ingredient(class="form-control is-invalid", placeholder="1/4 cup granulated sugar") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.ingredient.errors %}
+                                        <!--displaying to the user a message error-->
+                                        <span>{{ error }}</span> {% endfor %}
+                                    </div>
+                                    {% else %} {% for ingredient in recipes.ingredient %}
+                                    <input class="form-control is-invalid field-padding" name="ingredient" value="{{ ingredient }}"> {% endfor %} {% endif %}
                                 </div>
-                                    
-                                <!--buttons to add or remove input fields-->
+                                <!--buttons to add or remove ingredient input fields-->
                                 <div class="addRemove" id="ingredientList">
                                     <button type="button" value="add-row" id="addrow"><i class="fa fa-plus" aria-hidden="true"></i></button>
                                     <button type="button" value="remove-row" id="removerow"><i class="fa fa-minus" aria-hidden="true"></i></button>
@@ -119,7 +122,7 @@
                         <div class="form-row">
                             <div class="col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    {{ form.step.label(class="form-control-label") }}
+                                    {{ form.step.label(class="form-control-label newfield") }}
                                     <!--Check for error in the form input-->
                                     {% if form.step.errors %} {{ form.step(class="form-control is-invalid", placeholder="Preheat oven to 350°F") }}
                                     <div class="invalid-feedback">
@@ -127,9 +130,10 @@
                                         <!--displaying to the user a message error-->
                                         <span>{{ error }}</span> {% endfor %}
                                     </div>
-                                    {% else %} {{ form.step(class="form-control", placeholder="Preheat oven to 350°F") }} {% endif %}
+                                    {% else %} {% for step in recipes.step %}
+                                    <input class="form-control is-invalid field-padding" name="step" value="{{ step }}"> {% endfor %} {% endif %}
                                 </div>
-                                <!--buttons to add or remove input fields-->
+                                <!--buttons to add or remove step input fields-->
                                 <div class="addRemove" id="stepList">
                                     <button type="button" value="add-row" id="addrowSteps"><i class="fa fa-plus" aria-hidden="true"></i></button>
                                     <button type="button" value="remove-row" id="removerowSteps"><i class="fa fa-minus" aria-hidden="true"></i></button>
@@ -145,5 +149,7 @@
     </div>
 </div>
 {% endblock %}
+                                    
+                                    
                                 
                                 
