@@ -79,6 +79,7 @@ def add_recipe():
 def insert_recipe(): 
     form = AddRecipeForm()
     recipes = recipes_coll
+    print(request.form)
     if form.validate_on_submit():
         image = request.form['image']
         name =  request.form['name']
@@ -131,6 +132,7 @@ def edit_recipe(recipes_id):
         form.name.data = recipes['name']
         
     return render_template('editrecipe.html',recipes=recipes,page_title='Edit your Recipe', form=form)
+        
     
 
 
