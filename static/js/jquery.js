@@ -42,7 +42,7 @@ $(document).ready(function(){
 		});
  
 
-// Show/Hide the scroll top arrow
+	// Show/Hide the scroll top arrow
 	$(window).scroll(function() {
 		if($(this).scrollTop() > 50) {
 			$('#scroll-arrow').fadeIn();
@@ -52,7 +52,7 @@ $(document).ready(function(){
 	});
  
  
-// Sroll arrow to return to top page	  
+	// Sroll arrow to return to top page	  
 	 $('#scroll-arrow').click(function() {
 	 	$('html, body').animate({
 	 		scrollTop:0
