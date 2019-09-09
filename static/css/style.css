@@ -150,6 +150,10 @@ a:hover {
     display: block;
     text-align: center;
 }
+
+.ingredientGroup-ul, li {
+  list-style: none;
+}
     
  /*Counter button*/
 .btn-counter:after {
