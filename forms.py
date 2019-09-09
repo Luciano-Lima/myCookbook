@@ -37,7 +37,7 @@ class AddRecipeForm(FlaskForm):
     string_of_files = ['Egg\r\nBacon\r\nPepper\r\nNutmeg\r\nSeafood\r\nTurmeric']
     list_of_files = string_of_files[0].split()
     files = [(x, x) for x in list_of_files]
-    allergens = MultiCheckboxField('Allergens', choices=files, render_kw={"placeholder": "Choose..."})
+    allergens = MultiCheckboxField('Allergens', choices=files)
     ingredient = StringField('Ingredients', validators=[DataRequired(),Length(min=4, max=200)])
     step = StringField('Preparation Steps', validators=[DataRequired(),Length(min=4, max=200)])
     submit = SubmitField('Submit')
