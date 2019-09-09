@@ -8,7 +8,7 @@
         <div class="card each-recipe-pict">
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
-                    <img class="card-img-top" src="{{ recipes.image }}" alt="Image for {{ recipes.name }}"></img>
+                    <img class="card-img-top" src="{{ recipes.image }}" alt="Image for {{ recipes.name }}">
                     <div class="cuisine">
                         <span class="rec-info">Course:</span><span class="rec-info-desc">{{ recipes.course }}</span> 
                         <span class="rec-info">Cuisine:</span><span class="rec-info-desc">{{ recipes.cuisine }}</span> 
@@ -24,7 +24,6 @@
                     </div>    
                     <div class="rec-description text-center">
                         <p>{{ recipes.description }}</p>
-                   
                         <p>{{ recipes.notes }}</p>
                     </div>
                     <hr>
@@ -52,11 +51,13 @@
                             <h5 class="text-center">{{ rec.name }}</h5>
                             <div class="row ingred-group-amount">
                                 {% for ingredient in rec.ingredient %} 
-                                    <ul>
-                                        {{ingredient.amount}}
-                                        {{ingredient.unit}}
-                                        {{ingredient.name}}
-                                        {{ingredient.preparation}}
+                                    <ul class="ingredientGroup-ul">
+                                        <li>
+                                            {{ingredient.amount}}
+                                            {{ingredient.unit}}
+                                            {{ingredient.name}}
+                                            {{ingredient.preparation}}
+                                        </li>
                                     </ul>
                                 {% endfor %} 
                             </div>
@@ -76,5 +77,7 @@
     {% endif %}
 </div>
 {% endblock %}
+                                        
+                   
                        
                         
