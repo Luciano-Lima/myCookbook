@@ -13,8 +13,6 @@ app = Flask(__name__)
 app.config['MONGO_URI']=os.environ.get("MONGO_URI")
 app.config['SECRET_KEY']=os.environ.get("SECRET_KEY")
 
-#wtfform secret key
-app.secret_key = '123456789'
 
 mongo = PyMongo(app)
 # intialising bcrypt
@@ -225,4 +223,4 @@ def logout():
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=True)
+            debug=False)
