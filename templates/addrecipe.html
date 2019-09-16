@@ -6,8 +6,7 @@
         <p>Here you can add your very own recipe!
     </div>
     <!--Insert recipe form-->
-    
-       <div class="row insert_recipe-form">
+    <div class="row insert_recipe-form">
         <div class="col-md-12 mx-auto">
             <form action="{{url_for('insert_recipe')}}" method="POST">
                 {{ form.hidden_tag() }}
@@ -141,7 +140,7 @@
                                 </div>
                             </div>
                         </div>
-                    <div>
+                    </div>
                     <div>
                         {{ form.submit(class="btn btn-md btn-secondary submitFormButton ") }}
                     </div>
