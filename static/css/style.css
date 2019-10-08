@@ -15,6 +15,10 @@ a:hover {
     color: #212529;
     text-decoration: none;
 }
+
+.signUp {
+  color: #5bbe58;
+  }
         
 /*Navbar*/
 .navbar {
