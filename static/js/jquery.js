@@ -25,7 +25,7 @@ $(document).ready(function(){
 	
 	
 	// Hide allergens menu
-	$('#allergens li').hide() 
+	$('#allergens li').hide(); 
 	// Show allergens on click function 
 	$('.fa-angle-down').click(function() {
 	    $('#allergens li').slideDown(600)
