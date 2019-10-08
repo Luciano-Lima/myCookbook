@@ -13,6 +13,7 @@ app = Flask(__name__)
 app.config['MONGO_URI']=os.environ.get("MONGO_URI")
 app.config['SECRET_KEY']=os.environ.get("SECRET_KEY")
 
+# wtform csrf randon secret key
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
 
